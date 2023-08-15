@@ -4,26 +4,19 @@
 
 @if (AuthenticationService.User != null)
 {
-        <div class="dropdown borderclass">
-            <NavLink class="nav-link dropdown-toggle" href="" @onclick:preventDefault>
-            <img src="/images/User-icon.png" />@AuthenticationService.User.user_username
-            </NavLink>
-            <div class="dropdown-content">
-                <a class="dropdown-item" href="#" @onclick="UserProfile">User Profile</a>
-                <div style="display:@display">
-@*                     <MDMMasterDataMgmt.Client.Components.User.UserProfile UserName="@context.User.Identity.Name.Split('.')[0]" UserId= "@context.User.Identity.Name"  />             *@
-                <span class="horizontal-separator"></span></div>
-               
-                  <div>
-@*                <a class="dropdown-item" href="#" @onclick="BeginLogout">Sign Out</a>
-*@                </div>
-               
-            </div>
-        </div>
+       
+
+    <div class="nav-item dropdown">
+        <span class="fa fa-2x fa-user-tie text-primary mb-4" style="margin-top: 14px;margin-right: 5px;"></span> <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">@AuthenticationService.User.user_username</a>
+        <div class="dropdown-menu rounded-0 m-0">
+            <a href="profile" class="dropdown-item">Menu</a>
+            <a href="logout" class="dropdown-item">Logout</a>
+        </div>
+    </div>
 
   }
    else{
-        <a href="login">Log in</a>
+    <a href="login" class="nav-item nav-link">Login</a>
     }
 
 @code {
