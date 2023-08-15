@@ -1,0 +1,11 @@
+C:\Jobbvin_AspNetCore\Jobbvin\Shared\bin\Debug\net6.0\Jobbvin.Shared.deps.json
+C:\Jobbvin_AspNetCore\Jobbvin\Shared\bin\Debug\net6.0\Jobbvin.Shared.dll
+C:\Jobbvin_AspNetCore\Jobbvin\Shared\bin\Debug\net6.0\Jobbvin.Shared.pdb
+C:\Jobbvin_AspNetCore\Jobbvin\Shared\obj\Debug\net6.0\Jobbvin.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Jobbvin_AspNetCore\Jobbvin\Shared\obj\Debug\net6.0\Jobbvin.Shared.AssemblyInfoInputs.cache
+C:\Jobbvin_AspNetCore\Jobbvin\Shared\obj\Debug\net6.0\Jobbvin.Shared.AssemblyInfo.cs
+C:\Jobbvin_AspNetCore\Jobbvin\Shared\obj\Debug\net6.0\Jobbvin.Shared.csproj.CoreCompileInputs.cache
+C:\Jobbvin_AspNetCore\Jobbvin\Shared\obj\Debug\net6.0\Jobbvin.Shared.dll
+C:\Jobbvin_AspNetCore\Jobbvin\Shared\obj\Debug\net6.0\refint\Jobbvin.Shared.dll
+C:\Jobbvin_AspNetCore\Jobbvin\Shared\obj\Debug\net6.0\Jobbvin.Shared.pdb
+C:\Jobbvin_AspNetCore\Jobbvin\Shared\obj\Debug\net6.0\ref\Jobbvin.Shared.dll

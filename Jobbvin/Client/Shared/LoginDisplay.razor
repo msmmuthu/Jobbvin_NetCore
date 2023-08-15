@@ -1,0 +1,145 @@
+﻿@using Jobbvin.Client.Services;
+@using Jobbvin.Shared.Models;
+@inject NavigationManager Navigation
+
+@if (AuthenticationService.User != null)
+{
+        <div class="dropdown borderclass">
+            <NavLink class="nav-link dropdown-toggle" href="" @onclick:preventDefault>
+            <img src="/images/User-icon.png" />@AuthenticationService.User.user_username
+            </NavLink>
+            <div class="dropdown-content">
+                <a class="dropdown-item" href="#" @onclick="UserProfile">User Profile</a>
+                <div style="display:@display">
+@*                     <MDMMasterDataMgmt.Client.Components.User.UserProfile UserName="@context.User.Identity.Name.Split('.')[0]" UserId= "@context.User.Identity.Name"  />             *@
+                <span class="horizontal-separator"></span></div>
+               
+                  <div>
+@*                <a class="dropdown-item" href="#" @onclick="BeginLogout">Sign Out</a>
+*@                </div>
+               
+            </div>
+        </div>
+
+  }
+   else{
+        <a href="login">Log in</a>
+    }
+
+@code {
+    private bool isUserModalVisible { get; set; } = false;
+    private string UserId { get; set; }
+    private string display { get; set; } = "none";
+    private pic_user _user { get; set; }
+
+
+    [Inject]
+    public IAuthenticationService AuthenticationService { get; set; }
+
+    private async Task BeginLogout()
+    {
+        //         await SignOutManager.SetSignOutState();
+        Navigation.NavigateTo("Login");
+    }
+    private void ResetPassword(MouseEventArgs args)
+    {
+
+    }
+
+    public async Task OnInitializedAsync()
+    {
+        _user = AuthenticationService.User;
+    }
+    private void UserProfile(MouseEventArgs args)
+    {
+        if (isUserModalVisible)
+        {
+            display = "none";
+            isUserModalVisible = false;
+        }
+        else
+        {
+            isUserModalVisible = true;
+            display = "block";
+        }
+    }
+}
+
+<style>
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .cursor {
+        cursor: default !important;
+    }
+
+    .k-dialog-titlebar
+    {
+        background-color:transparent !important;
+    }
+
+  .k-window-titlebar {
+        border-style:none !important;
+  }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 1;
+        border-radius: 8px;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown-item:hover {
+        background-color: lightgray;
+    }
+
+    .borderclass {
+        border: 1px solid #00205C;
+        border-radius: 4px;
+    }
+
+      .detail-text {
+        font-weight: bold;
+        color: #42516E;
+        font-size: 14px;
+    }
+
+
+    .detail-location {
+        margin-bottom: 5px;
+        margin-left: 6px;
+        color: #041F5A;
+    }
+
+      .k-toolbar {
+        border-color: transparent !important;
+        color: #424242 !important;
+        background-color: transparent !important;
+        border-style:none !important;
+    }
+
+    
+    .horizontal-separator {
+        display: inline-block;
+        width: 100%;
+    }
+
+        .horizontal-separator::before {
+            position: absolute;
+            width: 80%;
+            height: 100%;
+            border-top:1px solid #DFDFDF;
+            content: " ";
+        }
+</style>
