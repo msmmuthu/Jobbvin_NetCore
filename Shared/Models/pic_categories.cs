@@ -13,7 +13,7 @@ namespace Jobbvin.Shared.Models
         public string categories_image { get; set; }
         public int categories_status { get; set; }
         public int categories_parent { get; set; }
-        public int categories_sub { get; set; }     
+        public int categories_sub { get; set; }
         public string categories_contact_type { get; set; }
         public string cat_search_title { get; set; }
         public string cat_search_limit { get; set; }
@@ -26,5 +26,11 @@ namespace Jobbvin.Shared.Models
         public int categories_maps { get; set; }
         public string categories_desc_label { get; set; }
         public int category_order { get; set; }
+    }
+
+    public class pic_categories_ViewModel
+    {
+        public pic_categories Maincategory { get; set; }
+        public List<pic_categories> SubCategories { get; set; }
     }
 }

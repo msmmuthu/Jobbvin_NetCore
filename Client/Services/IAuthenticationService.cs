@@ -1,6 +1,7 @@
 ﻿using Blazored.LocalStorage;
 using Jobbvin.Shared.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Configuration;
 using System.ComponentModel.Design;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace Jobbvin.Client.Services
 {
     public interface IAuthenticationService
     {
-        pic_user User { get; }
+        pic_user User { get; set; }
         Task Initialize();
         Task Login(string username, string password);
         Task Logout();
@@ -21,7 +22,18 @@ namespace Jobbvin.Client.Services
         private NavigationManager _navigationManager;
         private ILocalStorageService _localStorageService;
 
-        public pic_user User { get; private set; }
+        private pic_user user;
+        public pic_user User
+        {
+            get
+            {
+                return user;
+            }
+            set
+            {
+                user = value;
+            }
+        }
 
         public AuthenticationService(
             HttpClient httpService,

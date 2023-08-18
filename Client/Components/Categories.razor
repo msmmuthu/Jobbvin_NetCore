@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNetCore.Authorization;
+
+@attribute [Authorize]
+
+@foreach(var category in pic_Categories)
+{
+    <CascadingValue Value="@category" Name="pic_Category">
+    <SubCategory/>
+    </CascadingValue>
+}

@@ -7,6 +7,7 @@
   "linkerEnabled": false,
   "resources": {
     "assembly": {
+      "BlazorBootstrap.dll": "sha256-gfugosYYEAdV1p7eei+H5JX26K+51dU\/ljf0LZZ2E6g=",
       "Blazored.LocalStorage.dll": "sha256-w2vMoqbIgF9UyzKqfDFXjqgg7IsGRHDvzb6DcyaPW6s=",
       "Microsoft.AspNetCore.Authorization.dll": "sha256-u3YI1z9+WYkzMnYZVJY7FxCR+SwmvycsqrxEJe\/+KdQ=",
       "Microsoft.AspNetCore.Components.dll": "sha256-SRGbF6QFgLGIr1L82S0pwdZ676zDEsdybsBfKWb\/Vzw=",
@@ -199,15 +200,15 @@
       "mscorlib.dll": "sha256-ZQiPq7CHB7vwsbgiGeI63xqAYmfnZVwKnCDxwIIfh68=",
       "netstandard.dll": "sha256-OUZMjYvE6WNC75Ypitp3ukl0+FlDbSW+OYEIsU7XlgQ=",
       "System.Private.CoreLib.dll": "sha256-uJANsJB4HA9iyaKf1ryCSbtypfL2uQZWxXKIn0Fz5+c=",
-      "Jobbvin.Shared.dll": "sha256-54kaqdjNAzJcXiGlOTZ9Iy+mus\/4weMA9rPwi6BDB+0=",
-      "Jobbvin.Client.dll": "sha256-fCKN0cWxZKQdR3ABc5s83o29vjcKA1XOGvPh14glGTQ="
+      "Jobbvin.Shared.dll": "sha256-\/MbPx2YJdvdDrXQ+1RM7pgFom7jwkbhAycrJpLx1vxA=",
+      "Jobbvin.Client.dll": "sha256-OQ6iOaDeFNDghpMnKY1joJu9KroUipOAWvPnNYWjLDo="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
-      "Jobbvin.Shared.pdb": "sha256-WGNzSxmjzBixbzOpfjMt4bZPAP19wGg5p+YlMg7k0vI=",
-      "Jobbvin.Client.pdb": "sha256-zezQYtoUGI6UYcdz5UujDcu8QdrlLYQgClYmYj4RDwA="
+      "Jobbvin.Shared.pdb": "sha256-CA+amBGTSuOYz3Ej\/V0aj3efIT5By6t6hr6wgJyppsw=",
+      "Jobbvin.Client.pdb": "sha256-2CJ2pPkRO\/xEkuRaDA+ZNahchbnAd5pIlYHII290lCE="
     },
     "runtime": {
       "dotnet.6.0.21.6z7gyv0c08.js": "sha256-0OV6gibFzyVtG7NXEj8a6vG3u8Cbzv4l9kkEathZjQ8=",

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ukrkrPQST1XFstbojFkw+PmLmE+nPvRpg5BV9GlM4/P71u3sIvsvt48zt1X+Nae92ppPUKS3NFrpiECRCY0KSA==",
+  "dgSpecHash": "P5x/haY5GJv/XQeU7w5lo1Fx5wy1tQIlvOLewa5En4l995O40YHpWKy1E5z2XkJpu4ucqGtcyhJSIF5qWYmjKA==",
   "success": true,
   "projectFilePath": "C:\\Jobbvin_AspNetCore_Git\\Client\\Jobbvin.Client.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\DELL\\.nuget\\packages\\blazor.bootstrap\\1.10.0\\blazor.bootstrap.1.10.0.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\blazored.localstorage\\4.4.0\\blazored.localstorage.4.4.0.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.aspnetcore.authorization\\6.0.20\\microsoft.aspnetcore.authorization.6.0.20.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.aspnetcore.components\\6.0.20\\microsoft.aspnetcore.components.6.0.20.nupkg.sha512",

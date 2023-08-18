@@ -9,7 +9,7 @@
       "url": "css\/bootstrap.min.css"
     },
     {
-      "hash": "sha256-z8OR40MowJ8GgK6P89Y+hiJK5+cclzFHzLhFQLL92bg=",
+      "hash": "sha256-SiIVMGgRhdXjKSTIddX7mh9IbOXVcwQWc7\/p4nS6D\/0=",
       "url": "css\/bootstrap\/bootstrap.min.css"
     },
     {
@@ -53,7 +53,7 @@
       "url": "css\/open-iconic\/README.md"
     },
     {
-      "hash": "sha256-ygrpo7oetWEVXUgoEYaqK+FxLRA7TnC0aP0Xwv3B5cQ=",
+      "hash": "sha256-YTPGhUKcdCspTWJ4zS\/Aipps05CW6mMpNVsQgkny+H4=",
       "url": "css\/style.css"
     },
     {
@@ -133,7 +133,7 @@
       "url": "img\/testimonial-4.jpg"
     },
     {
-      "hash": "sha256-0nQxGnoms8mQ4mVdWE\/6cZCaYC2ah4PaHH4TEoCE9D4=",
+      "hash": "sha256-BpEB106zbp48zNouAo0HUgxQpl0TbXCTkOR6utCY7Mo=",
       "url": "index.html"
     },
     {
@@ -549,8 +549,12 @@
       "url": "scss\/bootstrap\/scss\/_variables.scss"
     },
     {
-      "hash": "sha256-usaGUwmHPAz9TmVfjefUZx6HvBYZPp0P0gPAYBBIOqM=",
+      "hash": "sha256-cdBwlxMELKQ6uGHsk2\/SlMlqwKFa+nn1+otENFWIXBI=",
       "url": "Jobbvin.Client.styles.css"
+    },
+    {
+      "hash": "sha256-gfugosYYEAdV1p7eei+H5JX26K+51dU\/ljf0LZZ2E6g=",
+      "url": "_framework\/BlazorBootstrap.dll"
     },
     {
       "hash": "sha256-w2vMoqbIgF9UyzKqfDFXjqgg7IsGRHDvzb6DcyaPW6s=",
@@ -1349,19 +1353,19 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-l0PRY7w2qZ5PjPlCyvjzdtHpwFaLT4mR0ACp+JaYXE0=",
+      "hash": "sha256-\/MbPx2YJdvdDrXQ+1RM7pgFom7jwkbhAycrJpLx1vxA=",
       "url": "_framework\/Jobbvin.Shared.dll"
     },
     {
-      "hash": "sha256-092X6h7UwWw7P0+AC+JO\/aYzdqHarGJFp96tuOv2wrs=",
+      "hash": "sha256-CA+amBGTSuOYz3Ej\/V0aj3efIT5By6t6hr6wgJyppsw=",
       "url": "_framework\/Jobbvin.Shared.pdb"
     },
     {
-      "hash": "sha256-nntI2sTekQOzT4\/y0GwyT7v+pX3BGVhN7+a4GUANAnY=",
+      "hash": "sha256-W0fOjM3bVR1x6lP1UuPVIngU3buF1e09KmzGFHjzErg=",
       "url": "_framework\/Jobbvin.Client.dll"
     },
     {
-      "hash": "sha256-3I9+I4HzQ5usdNTNEp\/pUqfoLfesOcxKfU\/OTbcNvvE=",
+      "hash": "sha256-A9O3UjJojH83Ub+y8ST9JjG5nvup69Iiz02Y4O\/5njs=",
       "url": "_framework\/Jobbvin.Client.pdb"
     },
     {
@@ -1369,13 +1373,29 @@
       "url": "_framework\/blazor.webassembly.js"
     },
     {
-      "hash": "sha256-W\/0nFW2nMWw2g0ch9KFvNxhf+oDyPaJs9aURKsQkQJ8=",
+      "hash": "sha256-C8bh8Qt\/gwvgJWm\/e3q\/KpdFUlh1hnbVakqASdVeVvQ=",
       "url": "_framework\/blazor.boot.json"
     },
     {
       "hash": "sha256-ufwN9wIcw3DmyXTJUOSibX\/BdZCBQRXyD5\/Ho\/+sh0E=",
       "url": "_content\/Microsoft.AspNetCore.Components.WebAssembly.Authentication\/AuthenticationService.js"
+    },
+    {
+      "hash": "sha256-Vp2P86fAoqHDkJfz21dXVdc2yLJ4nrUTywu1y01rfa0=",
+      "url": "_content\/Blazor.Bootstrap\/blazor.bootstrap.css"
+    },
+    {
+      "hash": "sha256-8i+z3imppYXtdstZki18hpEf2Bap2j\/oexiKWKpPs7A=",
+      "url": "_content\/Blazor.Bootstrap\/blazor.bootstrap.js"
+    },
+    {
+      "hash": "sha256-J1yB7ftYf6PWiU1781eE0JHBGfd1MV\/XlLaxpVy09RU=",
+      "url": "_content\/Blazor.Bootstrap\/icon\/128X128.png"
+    },
+    {
+      "hash": "sha256-p1b4sM1YFPjqbrHcPu6cj9qMLQAYsQqcj3qU4McUhl4=",
+      "url": "_content\/Blazor.Bootstrap\/Blazor.Bootstrap.bundle.scp.css"
     }
   ],
-  "version": "snz1+vPK"
+  "version": "UM4jAgMP"
 };

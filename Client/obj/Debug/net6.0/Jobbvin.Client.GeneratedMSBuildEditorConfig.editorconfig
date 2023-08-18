@@ -20,6 +20,18 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Jobbvin_AspNetCore_Git/Client/Components/Categories.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXRlZ29yaWVzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Jobbvin_AspNetCore_Git/Client/Components/ProductView.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQcm9kdWN0Vmlldy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Jobbvin_AspNetCore_Git/Client/Components/SubCategory.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTdWJDYXRlZ29yeS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Jobbvin_AspNetCore_Git/Client/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -30,6 +42,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Jobbvin_AspNetCore_Git/Client/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Jobbvin_AspNetCore_Git/Client/Pages/JobListing.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSm9iTGlzdGluZy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Jobbvin_AspNetCore_Git/Client/Pages/Login.razor]
@@ -59,6 +75,10 @@ build_metadata.AdditionalFiles.CssScope =
 [C:/Jobbvin_AspNetCore_Git/Client/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Jobbvin_AspNetCore_Git/Client/Shared/Loader.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXExvYWRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-ptd8c7zcmc
 
 [C:/Jobbvin_AspNetCore_Git/Client/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
