@@ -1,5 +1,6 @@
 ﻿@page "/Login"
 @using System.ComponentModel.DataAnnotations;
+@using BlazorBootstrap
 @using Jobbvin.Client.Services;
 @using Microsoft.AspNetCore.WebUtilities;
 @* @using Microsoft.AspNetCore. *@
@@ -8,7 +9,7 @@
 
 <div class="col-md-6 offset-md-3 mt-5">
     <div class="alert alert-info d-flex align-items-center text-center">
-        New Customer ? <a href="registation" class="nav-item nav-link">Signup</a>
+        New Customer?  <a href="registation" class="nav-item nav-link"><Button Color="ButtonColor.Primary"> Signup </Button></a>
     </div>
     <div class="card">
         <h4 class="card-header">Login</h4>
@@ -42,46 +43,3 @@
         </div>
     </div>
 </div>
-
-@code {
-    private Model model = new Model();
-    private bool loading;
-    private string error;
-
-    protected override void OnInitialized()
-    {
-        // redirect to home if already logged in
-        if (AuthenticationService.User != null)
-        {
-            navigationManager.NavigateTo("");
-        }
-    }
-
-    private async void HandleValidSubmit()
-    {
-        loading = true;
-        try
-        {
-            await AuthenticationService.Login(model.Username, model.Password);
-            var returnUrlUri = navigationManager.ToAbsoluteUri(navigationManager.Uri);
-            if (QueryHelpers.ParseQuery(returnUrlUri.Query).TryGetValue("returnUrl", out var param1))
-            // var returnUrl = navigationManager.QueryString("returnUrl") ?? "/";
-            navigationManager.NavigateTo(param1.First());
-        }
-        catch (Exception ex)
-        {
-            error = ex.Message;
-            loading = false;
-            StateHasChanged();
-        }
-    }
-
-    private class Model
-    {
-        [Required]
-        public string Username { get; set; }
-
-        [Required]
-        public string Password { get; set; }
-    }
-}

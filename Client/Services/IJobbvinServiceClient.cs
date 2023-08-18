@@ -6,7 +6,7 @@ namespace Jobbvin.Client.Services
 {
     public interface IJobbvinServiceClient
     {
-        Task<ApiResponse> Login(string username, string password);
+        Task<pic_user> Login(string username, string password);
     }
 
     public class JobbvinServiceClient : IJobbvinServiceClient
@@ -21,17 +21,17 @@ namespace Jobbvin.Client.Services
 
         }
 
-        public async Task<ApiResponse> Login(string username, string password)
+        public async Task<pic_user> Login(string username, string password)
         {
-            ApiResponse response = new ApiResponse();
+            pic_user response = new pic_user();
             try
             {
                 HttpClient.DefaultRequestHeaders.Accept.Add(
                     new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                var respse = await HttpClient.GetFromJsonAsync<ApiResponse>($"api/Jobbvin/{username}/{password}");
+                var respse = await HttpClient.GetFromJsonAsync<pic_user>($"api/Jobbvin/{username}/{password}");
                 return response;
-                    }
+            }
             catch (Exception ex)
             {
                 Console.WriteLine("Error on Login : " + ex.Message);
