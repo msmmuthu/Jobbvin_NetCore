@@ -1,4 +1,4 @@
-﻿namespace Jobbvin.Shared.Models
+﻿namespace Jobbvin.Server.Models
 {
     public class pic_addpost_locations
     {

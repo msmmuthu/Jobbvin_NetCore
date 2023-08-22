@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Jobbvin.Shared.Models
+namespace Jobbvin.Server.Models
 {
     public class ProductListViewModel
     {
@@ -28,7 +28,7 @@ namespace Jobbvin.Shared.Models
 
         public List<pic_addpost_locations> pic_Addpost_Locations { get; set; }
         public List<DisplayInFieldValue> DisplayInFieldValues { get; set; }
-
+                
         public ProductListViewModel()
         {
             pic_add_images = new List<string>();

@@ -1,0 +1,177 @@
+﻿@page "/ProductDetails"
+@using System.ComponentModel.DataAnnotations;
+@using BlazorBootstrap
+@using Jobbvin.Client.Services;
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.WebUtilities;
+@using Microsoft.AspNetCore;
+@inject IAuthenticationService AuthenticationService;
+@inject NavigationManager navigationManager;
+
+@attribute [Authorize]
+
+<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="container">
+                <div class="row gy-5 gx-4">
+                    <div class="col-lg-8">
+                       
+                <div class="job-item p-4 mb-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                            <img class="flex-shrink-0 img-fluid border rounded" src="@_productDetailsViewModel.ProductListViewModel.pic_add_images.FirstOrDefault()" alt="" style="width: 80px; height: 80px;">
+                            <div class="text-start ps-4">
+                                <h4 class="mb-3">@_productDetailsViewModel.ProductListViewModel.pic_title</h4>
+                                 @foreach (var loc in _productDetailsViewModel.ProductListViewModel.pic_Addpost_Locations)
+                                {
+                                    <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>@loc.loc_name</span>
+                                }
+                                <span class="text-truncate me-3"><i class="far fa-calendar-alt text-primary me-2"></i>@_productDetailsViewModel.ProductListViewModel.pic_postdate.ToJobbvinDate()</span>
+                                <span class="text-truncate me-3"><i class="far fa-money-bill-alt text-primary me-2"></i>@_productDetailsViewModel.ProductListViewModel.pic_price</span>
+                                <span class="text-truncate me-3"><i class="far fa-money-bill-alt text-primary me-2"></i>Ad Id : @_productDetailsViewModel.ProductListViewModel.pic_ads_id</span>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                            <div class="d-flex mb-3">
+                                <a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a>
+                                <a class="btn btn-primary" href="" @onclick:preventDefault @onclick="@OnLikeClick">@likeText<span class="@likedClass"></span></a>
+                            </div>
+                            <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Star</small>
+                        </div>
+                    </div>
+                </div>
+
+                        <div class="mb-5">
+                          
+                            @foreach(var field in _productDetailsViewModel.ProductDetailsFieds)
+                            {
+                                <h6 class="mb-3">@field.FieldTitle</h6>
+                                <p>@field.FieldValue</p>
+                            }
+                              @if (_productDetailsViewModel.DisplayContact)
+                    {
+                        <h5 class="mb-3">Download File</h5>
+                        @if (_productDetailsViewModel.ProductFiles != null && _productDetailsViewModel.ProductFiles.Count > 0)
+                        {
+                            <div class="job-item p-4 mb-4">
+                                <div class="row g-4">
+                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                        <a href="@_productDetailsViewModel.ProductFiles.FirstOrDefault().PicFileUrl"><img class="flex-shrink-0 img-fluid border rounded" src="@_productDetailsViewModel.ProductFiles.FirstOrDefault().PicFileIconPath" alt="" style="width: 80px; height: 80px;" /></a>
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                        </div>
+        
+                        <div class="">
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100" type="submit">View more jobs</button>
+                                    </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100" type="submit">View more jobs from the same user</button>
+                            </div>
+                                </div>
+                      
+                            </form>
+                        </div>
+                    </div>
+        
+                    <div class="col-lg-4">
+
+                <div class="bg-light rounded p-5 mb-4 wow slideInUp" data-wow-delay="0.1s">
+                    <h4 class="mb-4">Description</h4>
+                    <p class="m-0">@_productDetailsViewModel.ProductListViewModel.pic_discription</p>
+                </div>
+
+                @if (_productDetailsViewModel.DisplayContact)
+                {
+                    <div class="bg-light rounded p-5 wow slideInUp" data-wow-delay="0.1s">
+
+                        <h4 class="mb-4">Contact Details</h4>
+                        <p><i class="fa fa-1x fa-user-tie text-primary me-2"></i>@_productDetailsViewModel.ContactDetails.user_username</p>
+                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>@_productDetailsViewModel.ContactDetails.user_city</p>
+
+                        <a href="tel: @_productDetailsViewModel.ContactDetails.user_mobile" class="liked btn btn-primary btn-block">
+                            <i style="color: #fff;transform: scaleX(-1);" class="fa fa-phone"></i>&nbsp;&nbsp;@_productDetailsViewModel.ContactDetails.user_mobile
+                        </a>
+                    </div>
+                }
+            </div>
+                </div>
+            </div>
+        </div>
+
+<Modal @ref="modalLiked" title="Like Ads" UseStaticBackdrop="true">
+    <BodyTemplate>
+      
+        <div class="d-flex align-items-center">
+            <div class="ps-3">
+                <h5 class="mb-1"> You Requested Already!</h5>
+                <small>Thank you for Contacting us!.</small>
+               
+            </div>
+           
+        </div>
+       <div class="d-flex align-items-center">
+            <div class="ps-3">
+                <small>We will Call you soon.</small>
+            </div>
+        </div>
+
+    </BodyTemplate>
+    <FooterTemplate>
+        <Button Color="ButtonColor.Secondary" @onclick="OnHideModalClick">Close</Button>
+    </FooterTemplate>
+</Modal>
+
+
+<Modal @ref="modalLike" title="Like Ads" UseStaticBackdrop="true">
+    <BodyTemplate>
+        <EditForm Model="@picLikes" OnValidSubmit="OnLikeSubmit" OnInvalidSubmit="OnLikeInvalidSubmit">
+            <DataAnnotationsValidator/>
+        <div class="form-label-group">
+                <label for="cus_mobileno">Your Name</label>
+                <input class="form-control" type="text" name="cus_name" id="cus_name" @bind-value="@picLikes.likes_cus_name" required>
+        </div>
+        <div class="form-label-group">
+                <label for="cus_mobileno">Mobile No *</label>
+                <input class="form-control" readonly="readonly" type="text" pattern="[789][0-9]{9}" maxlength="10" name="cus_mobileno" id="cus_mobileno" required @bind-value="@picLikes.likes_cus_mobile">
+        </div>
+
+        <div class="form-label-group">
+                <label for="cus_mobileno">Your Email ID *</label>
+                <input readonly="readonly" class="form-control" type="email" name="cus_email" id="cus_email" @bind-value="@picLikes.likes_cus_email">
+        </div>
+
+        <div class="form-label-group">
+                <label for="cus_conatctno">Your Contact No (Optional)</label>
+                <input class="form-control" type="text" pattern="[789][0-9]{9}" maxlength="10" @bind-value="@picLikes.contact_no" name="cus_conatctno" required>
+        </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-secondary" @onclick="OnHideLikeModalClick">Close</button>
+                <button class="btn btn-primary" type="submit">
+                    @if (loading)
+                    {
+                        <span class="spinner-border spinner-border-sm mr-1"></span>
+                    }Like
+                </button>
+            </div>
+ 
+        </EditForm>
+    </BodyTemplate>
+    <FooterTemplate>
+        @if (!string.IsNullOrEmpty(error))
+        {
+            <div class="alert alert-danger mt-3 mb-0">@error</div>
+        }
+    </FooterTemplate>
+</Modal>
+

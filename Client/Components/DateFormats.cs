@@ -1,4 +1,4 @@
-﻿namespace Jobbvin.Client.Components
+﻿namespace Jobbvin.Client
 {
     public static class DateFormats
     {
