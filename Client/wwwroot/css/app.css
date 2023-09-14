@@ -62,3 +62,8 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.form-check-input:checked {
+    background-color: #008000 !important;
+    border-color: #0d6efd !important;
+}

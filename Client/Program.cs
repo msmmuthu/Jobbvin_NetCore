@@ -13,7 +13,7 @@ using System.Security.Cryptography.X509Certificates;
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress), Timeout = TimeSpan.FromMinutes(5) });
 //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:44371/"), Timeout = TimeSpan.FromMinutes(5) });
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddBlazorBootstrap();

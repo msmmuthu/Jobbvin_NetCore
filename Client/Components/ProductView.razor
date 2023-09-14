@@ -1,9 +1,18 @@
 ﻿<div class="job-item p-4 mb-4">
     <div class="row g-4">
+
         <div class="col-sm-12 col-md-8 d-flex align-items-center">
+
             <img class="flex-shrink-0 img-fluid border rounded" src="@Item.pic_add_images.FirstOrDefault()" alt="" style="width: 80px; height: 80px;">
-            <div class="text-start ps-4">
-                <h5 class="mb-3">@Item.pic_title</h5>
+            <a href="/ProductDetails?adId=@Item.pic_ads_id">
+
+                <div class="text-start ps-4">
+                    <h5 class="mb-3">@Item.pic_title
+                        @if (Item.DisplayContact)
+                        {
+                            <i class="text-success fa fa-check-circle"></i>
+                        }
+                    </h5>
                 <h6 class="mb-2">@Item.pic_discription</h6>
                 @if (Item.pic_Addpost_Locations != null)
                 {
@@ -22,13 +31,34 @@
                     }
                 }
             </div>
+            </a>
+
         </div>
         <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
             <div class="d-flex mb-3">
-                <a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a>
-                <a class="btn btn-primary" href="">Apply Now</a>
+                <div class="ratingg" id="ratingout1663907590">
+                    @if (Item.pic_star_rating.TotalRatings > 0)
+                    {
+                        <span class="btn btn-light btn-square me-1">(@Item.pic_star_rating.TotalRatings)</span>
+                    }
+                    @for(int i=1; i<= 5; i++ )
+                    {
+                        var chked = "";
+                        if (i <= @Item.pic_star_rating.Average)
+                            chked = "checked";
+                        else
+                            chked = "";
+                        <span class="fa fa-star @chked"></span>
+                    }
+                </div>
             </div>
             <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Posted Date: @Item.pic_postdate.ToJobbvinDate()</small>
         </div>
     </div>
 </div>
+
+<style>
+    .checked {
+        color: orange;
+    }
+</style>

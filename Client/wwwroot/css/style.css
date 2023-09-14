@@ -410,6 +410,11 @@
     position: absolute;
 }
 
+.form-check-input:checked {
+    background-color: #008000 !important;
+    border-color: #0d6efd !important;
+}
+
 @keyframes spin {
     0% {
         transform: rotate(0deg)

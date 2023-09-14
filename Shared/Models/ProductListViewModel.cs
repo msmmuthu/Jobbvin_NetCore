@@ -25,7 +25,7 @@ namespace Jobbvin.Shared.Models
         public int EnableCalender { get; set; }
         public int DisplayOnHomePage { get; set; }
         public string pic_locations { get; set; }
-
+        public bool DisplayContact { get; set; }
         public List<pic_addpost_locations> pic_Addpost_Locations { get; set; }
         public List<DisplayInFieldValue> DisplayInFieldValues { get; set; }
 

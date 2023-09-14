@@ -11,6 +11,7 @@ using Jobbvin.Server.Query;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MySqlConnector;
+using System.Collections;
 
 namespace Jobbvin.Server
 {
@@ -55,9 +56,9 @@ namespace Jobbvin.Server
                     prodListViewModel.pic_Addpost_Locations.AddRange(from loc in loc_name
                                                                      select new pic_addpost_locations { loc_name = loc });
                     prodListViewModel.pic_star_rating = await GetStarRatingByByAdId(prodListViewModel.pic_ads_id);
-                    //prodListViewModel.pic_Addpost_Locations = await GetAdLocationByByAdId(prodListViewModel.pic_ads_id);
+                    prodListViewModel.DisplayContact = await CheckLikeExistsRecord(prodListViewModel.pic_ads_id.ToString(), filterModel.user_id.ToString(), prodListViewModel.pic_user_id.ToString());
 
-                    prodListViewModel.DisplayInFieldValues = await GetDisplayInListFields(prodListViewModel.pic_ads_id);
+                    //prodListViewModel.DisplayInFieldValues = await GetDisplayInListFields(prodListViewModel.pic_ads_id);
 
                     prodLists.Add(prodListViewModel);
                 }
@@ -997,7 +998,8 @@ namespace Jobbvin.Server
             try
             {
                 using var cmd = Db.Connection.CreateCommand();
-
+                if (Db.Connection.State != System.Data.ConnectionState.Open)
+                    await Db.Connection.OpenAsync();
                 cmd.CommandText = @"INSERT INTO `pic_addpost_field` 
                     (`addpost_fields_categories_id`, `addpost_uni_id`, `addpost_fields_title`, `addpost_fields_type`,`addpost_fields_value`,
                      `field_id`,`pots_field_DV_id`, `addpost_fields_lan`,`addpost_fields_lon`) 
@@ -1077,7 +1079,8 @@ namespace Jobbvin.Server
             try
             {
                 using var cmd = Db.Connection.CreateCommand();
-
+                if (Db.Connection.State != System.Data.ConnectionState.Open)
+                    await Db.Connection.OpenAsync();
                 cmd.CommandText = @"UPDATE `pic_addpost_field` 
                     SET `addpost_fields_categories_id`=@addpost_fields_categories_id,
                         `addpost_uni_id`=@addpost_uni_id, 
@@ -1366,7 +1369,8 @@ namespace Jobbvin.Server
                 try
                 {
                     using var cmd = Db.Connection.CreateCommand();
-
+                    if (Db.Connection.State != System.Data.ConnectionState.Open)
+                        await Db.Connection.OpenAsync();
                     cmd.CommandText = @"INSERT INTO `pic_addpost_locations` 
                     (`addpost_uni_id`, `loc_name`, `pic_add_lon`, `pic_add_lat`) 
                     VALUES 
@@ -1448,7 +1452,8 @@ namespace Jobbvin.Server
             try
             {
                 using var cmd = Db.Connection.CreateCommand();
-
+                if (Db.Connection.State != System.Data.ConnectionState.Open)
+                    await Db.Connection.OpenAsync();
                 cmd.CommandText = @"INSERT INTO `pic_addpost_files` 
                     (`pic_ads_id`, `pic_file_url`, `pic_file_added_on`) 
                     VALUES 
@@ -1521,7 +1526,8 @@ namespace Jobbvin.Server
             try
             {
                 using var cmd = Db.Connection.CreateCommand();
-
+                if (Db.Connection.State != System.Data.ConnectionState.Open)
+                    await Db.Connection.OpenAsync();
                 cmd.CommandText = @"INSERT INTO `pic_addpost_profiles` 
                     (`pic_ads_id`, `pic_file_url`, `pic_file_added_on`) 
                     VALUES 
@@ -1862,6 +1868,44 @@ namespace Jobbvin.Server
                 return balanceScheme;
             }
             return balanceScheme;
+
+        }
+
+        public async Task<CategoryName> GetCategoryText(int catId)
+        {
+            var _categoryName = new CategoryName();
+            try
+            {
+                if (Db.Connection.State != System.Data.ConnectionState.Open)
+                    await Db.Connection.OpenAsync();
+                using (var cmdDDField = Db.Connection.CreateCommand())
+                {
+                    cmdDDField.CommandText = "select sc.categories_name as subcat, ca.categories_name as cat, sc.categories_desc_label from pic_categories sc" +
+                        " join pic_categories ca on sc.categories_sub = ca.categories_id where sc.categories_id = @catId";
+
+                    cmdDDField.Parameters.Add(new MySqlParameter
+                    {
+                        ParameterName = "@catId",
+                        DbType = DbType.Int32,
+                        Value = catId,
+                    });
+                    using (var reader = await cmdDDField.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            _categoryName.SubCategoryText = Convert.ToString(reader[0]);
+                            _categoryName.CategoryText = Convert.ToString(reader[1]);
+                            _categoryName.CategoriesDescLabel = Convert.ToString(reader[2]);
+                            return _categoryName;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return _categoryName;
+            }
+            return _categoryName;
 
         }
 

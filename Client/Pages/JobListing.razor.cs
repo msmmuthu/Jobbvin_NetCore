@@ -40,9 +40,17 @@ namespace Jobbvin.Client.Pages
         private string loadingText = "Loading...";
         int pageNumber = 1;
         int catId = 0;
+        private List<BreadcrumbItem> NavItems1 { get; set; }
+
         public List<ProductListViewModel> ProductListViewModels { get; set; } = new List<ProductListViewModel>();
         protected override async Task OnInitializedAsync()
         {
+            NavItems1 = new List<BreadcrumbItem>
+            {
+                new BreadcrumbItem{ Text = "Home", Href ="/" },
+                new BreadcrumbItem{ Text = "Listing", IsCurrentPage = true }
+            };
+
             Loader.Show(SpinnerColor.Primary);
             var uri = navigationManager.ToAbsoluteUri(navigationManager.Uri);
             if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("categoryId", out var param1))
@@ -51,6 +59,7 @@ namespace Jobbvin.Client.Pages
                 catId = Convert.ToInt32(param1.First());
                 productFilterModel.cat_id = catId;
                 productFilterModel.offset = pageNumber;
+                productFilterModel.user_id = AuthenticationService.User.user_id;
                 await GetProductListBySubCategoryFilter(productFilterModel);
                 pageNumber++;
             }

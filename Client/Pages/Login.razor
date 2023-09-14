@@ -3,18 +3,19 @@
 @using BlazorBootstrap
 @using Jobbvin.Client.Services;
 @using Microsoft.AspNetCore.WebUtilities;
+@using Microsoft.AspNetCore.Components.Forms;
 @* @using Microsoft.AspNetCore. *@
 @inject IAuthenticationService AuthenticationService;
 @inject NavigationManager navigationManager;
 
 <div class="col-md-6 offset-md-3 mt-5">
     <div class="alert alert-info d-flex align-items-center text-center">
-        New Customer?  <a href="registation" class="nav-item nav-link"><Button Color="ButtonColor.Primary"> Signup </Button></a>
+        New Customer?  <a href="Registration" class="nav-item nav-link"><Button Color="ButtonColor.Primary"> Signup </Button></a>
     </div>
     <div class="card">
         <h4 class="card-header">Login</h4>
         <div class="card-body">
-            <EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
+            <Microsoft.AspNetCore.Components.Forms.EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
                 <DataAnnotationsValidator />
                 <div class="form-group">
                     <label>Username</label>
@@ -39,7 +40,7 @@
                 @if (!string.IsNullOrEmpty(error)) {
                     <div class="alert alert-danger mt-3 mb-0">@error</div>
                 }
-            </EditForm>
+            </Microsoft.AspNetCore.Components.Forms.EditForm>
         </div>
     </div>
 </div>
