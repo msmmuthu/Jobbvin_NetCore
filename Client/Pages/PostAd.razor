@@ -1,0 +1,12 @@
+﻿@page "/PostAd"
+@using Microsoft.AspNetCore.Authorization;
+@inject NavigationManager navigationManager;
+
+@attribute [Authorize]
+
+<div>Create Post</div>
+<CascadingValue Value="@OnShowPostFields" Name="OnShowPostFields">
+<CascadingValue Value="@returnUrl" Name="returnUrl">
+<Jobbvin.Client.Components.PostCanvas/>
+    </CascadingValue>
+</CascadingValue>

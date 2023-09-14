@@ -1,0 +1,44 @@
+﻿<div class="row g-3">
+<div class="text-black pb-1 mylabel pb-1"> @field.FieldTitle *</div>
+@if (field.FieldType.ToLower() == "dropdown")
+    {
+        <div class="col-12 col-sm-6">
+            <InputSelect @bind-Value="adPostfield.addpost_fields_value" class="form-select js-example-basic-single3 form-control mb-0">
+                <option value="">SELECT @field.FieldTitle.ToUpperInvariant()</option>
+                @foreach (var lst in field.FieldListValues)
+                {
+                    <option value="@lst.FieldId">@lst.FieldValue</option>
+                    @* adPostfield.pots_field_DV_id = @lst.FieldDVId; *@
+                    adPostfield.addpost_fields_categories_id = field.FieldCategoryId;
+                    adPostfield.addpost_fields_title = field.FieldTitle.ToUpperInvariant();
+                    adPostfield.addpost_fields_type = field.FieldType;
+                    adPostfield.field_id = @lst.FieldDVId;
+                }
+            </InputSelect>
+            <ValidationMessage For="@(()=>adPostfield.addpost_fields_value)"/>
+        </div>
+    }
+    else if (field.FieldType.ToLower() == "textbox" || field.FieldType.ToLower() == "text")
+    {
+        <div class="col-12 col-sm-6">
+            <input type="text" class="form-control mb-0" @bind-value="adPostfield.addpost_fields_value" placeholder="ENTER @field.FieldTitle.ToUpperInvariant()">
+        </div>
+        <ValidationMessage For="@(()=>adPostfield.addpost_fields_value)" />
+
+        adPostfield.addpost_fields_categories_id = field.FieldCategoryId;
+        adPostfield.addpost_fields_title = field.FieldTitle;
+        adPostfield.addpost_fields_type = field.FieldType;
+        adPostfield.field_id = field.FieldId;
+    }     
+</div>
+<style>
+    .mylabel {
+        color: #3f4146;
+        font-weight: bold;
+    }
+
+    .form-control:disabled, .form-control:read-only {
+        background-color: #fff;
+        opacity: 1;
+    }
+</style>

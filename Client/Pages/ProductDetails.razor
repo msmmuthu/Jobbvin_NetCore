@@ -10,8 +10,14 @@
 
 @attribute [Authorize]
 
+<div class="container my-1 pt-1 pb-1">
+    <Breadcrumb Items="NavItems1" />
+</div>
+
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
             <div class="container">
+        <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Job Details</h1>
+
                 <div class="row gy-5 gx-4">
                     <div class="col-lg-8">
                        
@@ -36,7 +42,23 @@
                                 <a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a>
                                 <a class="btn btn-primary" href="" @onclick:preventDefault @onclick="@OnLikeClick">@likeText<span class="@likedClass"></span></a>
                             </div>
-                            <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Star</small>
+                            <div class="ratingg" id="ratingout1663907590">
+                                @if (_productDetailsViewModel.StarRateValue > 0)
+                                {
+                                    <span class="right badge badge-success">@_productDetailsViewModel.StarRateValue</span>
+                                }
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    var chked = "";
+                                    var val = i;
+                                    if (i <= _productDetailsViewModel.StarRateValue)
+                                        chked = "checked";
+                                    else
+                                        chked = "";
+                                    <span class="fa fa-star @chked"  @onclick="@(e=> RatingUpdate(val, _productDetailsViewModel.ProductListViewModel.pic_ads_id))"></span>
+
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -100,7 +122,7 @@
                         <p><i class="fa fa-map-marker-alt text-primary me-2"></i>@_productDetailsViewModel.ContactDetails.user_city</p>
 
                         <a href="tel: @_productDetailsViewModel.ContactDetails.user_mobile" class="liked btn btn-primary btn-block">
-                            <i style="color: #fff;transform: scaleX(-1);" class="fa fa-phone"></i>&nbsp;&nbsp;@_productDetailsViewModel.ContactDetails.user_mobile
+                            <i class="fa fa-phone-alt me-3"></i>@_productDetailsViewModel.ContactDetails.user_mobile
                         </a>
                     </div>
                 }
@@ -135,7 +157,7 @@
 
 <Modal @ref="modalLike" title="Like Ads" UseStaticBackdrop="true">
     <BodyTemplate>
-        <EditForm Model="@picLikes" OnValidSubmit="OnLikeSubmit" OnInvalidSubmit="OnLikeInvalidSubmit">
+        <Microsoft.AspNetCore.Components.Forms.EditForm Model="@picLikes" OnValidSubmit="OnLikeSubmit" OnInvalidSubmit="OnLikeInvalidSubmit">
             <DataAnnotationsValidator/>
         <div class="form-label-group">
                 <label for="cus_mobileno">Your Name</label>
@@ -165,7 +187,7 @@
                 </button>
             </div>
  
-        </EditForm>
+        </Microsoft.AspNetCore.Components.Forms.EditForm>
     </BodyTemplate>
     <FooterTemplate>
         @if (!string.IsNullOrEmpty(error))
@@ -174,4 +196,17 @@
         }
     </FooterTemplate>
 </Modal>
+<style>
+    .checked {
+        color: orange;
+    }
 
+    .badge-success {
+        color: #fff !important;
+        background-color: #28a745 !important;
+    }
+
+    .text-success {
+        color: #fff !important;
+    }
+</style>

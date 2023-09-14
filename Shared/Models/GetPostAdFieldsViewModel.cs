@@ -13,6 +13,7 @@ namespace Jobbvin.Shared.Models
         public List<PostImageFiles> PostImageFiles { get; set; }
         public List<pic_user> ContactDetails { get; set; }
         public int BalanceScheme { get; set; }
+        public CategoryName CategoryName { get; set; }
         public GetPostAdFieldsViewModel()
         {
             pic_categories_fields = new List<pic_categories_fields>();
@@ -20,7 +21,15 @@ namespace Jobbvin.Shared.Models
             ProductFiles = new List<ProductDetailsFiles>();
             PostImageFiles = new List<PostImageFiles>();
             ContactDetails = new List<pic_user>();
+            CategoryName = new CategoryName();
         }
+    }
+
+    public class CategoryName
+    {
+        public string CategoryText { get; set; }
+        public string SubCategoryText { get; set; }
+        public string CategoriesDescLabel { get; set; }
     }
 
     public class ProductCategoryFields

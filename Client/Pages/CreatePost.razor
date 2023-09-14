@@ -1,0 +1,220 @@
+﻿@page "/CreatePost"
+@using System.ComponentModel.DataAnnotations;
+@using BlazorBootstrap
+@using Jobbvin.Client.Services;
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.WebUtilities;
+@using Microsoft.AspNetCore;
+@inject IAuthenticationService AuthenticationService;
+@inject IJSRuntime JSRuntime;
+@inject NavigationManager navigationManager;
+
+@attribute [Authorize]
+
+<div class="container my-1 pt-1 pb-1">
+    <Breadcrumb Items="NavItems1" />
+</div>
+<Modal @ref="creationModalSuccess" Title="Post Ad">
+    <BodyTemplate>
+       Ceated successfully!
+    </BodyTemplate>
+    <FooterTemplate>
+        <Button Color="ButtonColor.Primary" @onclick="OnHideModalClick">OK</Button>
+    </FooterTemplate>
+</Modal>
+
+
+<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Post Your Job</h1>
+       
+         <EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
+        <div class="row gy-5 gx-4">
+            <div class="col-lg-8">
+
+                <div class="job-item p-4 mb-4 alert-info">
+                    <div class="row">
+
+                        <div class="col-sm-12 col-md-12 col-lg-6 pb-0">
+
+
+                            <div class="form-group">
+                                <div class="list-group">
+                                    <div class="list-group-item list-group-item-light">
+                                        Your Scheme : <strong>@_postAdFieldsViewModel.BalanceScheme</strong> Available
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-6 pb-0">
+
+                            <div class="form-group">
+                                <div class="list-group">
+                                    <div class="list-group-item list-group-item-light">
+                                       Category :<strong>@_postAdFieldsViewModel.CategoryName.CategoryText</strong><span> -&gt; </span> <strong>@_postAdFieldsViewModel.CategoryName.SubCategoryText</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="mb-5">
+                    <div class="row g-3">
+                            <p> <a style="font-size: 100%;font-weight: bold;" href="#" id="change_loc_postad" @onclick:preventDefault @onclick="() => ShowLocationSelector()">Add Job Locations <i class="fa fa-edit"></i></a></p>
+
+                            <div style="display : @changeLocDisplay;" class="form-group" id="changeloc">
+                                <div id="locationChipHolder" class="locationChipHolderCls form-check">
+                                    
+                                    <div class="chip">
+                                        <div class="chipLocNameCls">locationName</div>
+                                        <i onclick="deleteLocCHip()" class="chipCloseCls fas fa-times"></i>
+                                    </div>
+                                </div>
+                                <input class="form-control" style="margin-top: 6px;width:100%;" type="text" autocomplete="off" placeholder="Enter your town and district...." name="localitypostad" onfocus="initializeAutocompletePostAd()" id="localitypostad" />
+                                <div id="locErrTxtId" class="locErrTxtCls"></div>
+                                <input type="hidden" readonly name="multiLocChip" id="multiLocChip" value="" />
+                            </div>
+
+                         <div class="row g-3">
+                                    <div class="text-black pb-1 mylabel pb-1">TITLE *</div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="text" class="form-control mb-4" @bind-value="model.pic_Addpost.pic_title" placeholder="ENTER TITLE">
+                                </div>
+                                <ValidationMessage For="@(()=>model.pic_Addpost.pic_title)" />
+
+                            </div>
+                            <div class="row g-3">
+                                <div class="text-black pb-1 mylabel pb-1">SALARY *</div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="number" class="form-control mb-4" @bind-value="model.pic_Addpost.pic_price" placeholder="ENTER SALARY">
+                                </div>
+                                <ValidationMessage For="@(()=>model.pic_Addpost.pic_price)" />
+
+                            </div>
+                            @{
+                                int loop = 0;
+                            }
+                            @if (_postAdFieldsViewModel.ProductCategoryFields != null)
+                            {
+                                //model.pic_Addpost_Field.Clear();
+                                @foreach (var field in _postAdFieldsViewModel.ProductCategoryFields)
+                                {
+                                    if (model.pic_Addpost_Field != null && model.pic_Addpost_Field.Count != _postAdFieldsViewModel.ProductCategoryFields.Count)
+                                    {
+                                        model.pic_Addpost_Field.Add(new Jobbvin.Shared.Models.pic_addpost_field());
+                                    }
+                                    <CascadingValue Value="@model.pic_Addpost_Field[loop]" Name="adPostfield">
+                                        <CascadingValue Value="@field" Name="field">
+                                            <Jobbvin.Client.Components.PostFields/>
+                                        </CascadingValue>
+                                    </CascadingValue>
+                                    loop = loop + 1;
+                                }
+                            }
+                            <div class="row g-3">
+                                <div class="text-black pb-1 mylabel pb-1">@_postAdFieldsViewModel.CategoryName.CategoriesDescLabel *</div>
+                                <div class="col-12 col-sm-6 mb-4">
+                                    <InputTextArea class="form-control" rows="5" @bind-Value="@model.pic_Addpost.pic_discription" placeholder="DESCRIPTION"></InputTextArea>
+                                </div>
+                            </div>
+                            <div class="row g-3">
+                                <div class="text-black pb-1 mylabel pb-1">UPLOAD PROFILE *</div>
+                                <div class="col-12 col-sm-6 mb-4">
+                                    <InputFile OnChange="@OnFileSelectedAsync" class="form-control bg-white" accept=".doc, .docx, pdf" @bind-value="model.pic_Addpost.pic_title" placeholder="Permitted file types : pdf, doc, docx" />
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="text-black pb-1 mylabel pb-1">UPLOAD PHOTO *</div>
+                                <div class="col-12 col-sm-6 mb-4">
+                                    <InputFile OnChange="@OnFileSelectedImageAsync" class="form-control bg-white" accept=".jpg, .jpeg, png" @bind-value="model.pic_Addpost.pic_title" o placeholder="Permitted : jpg, png, jpeg file types and max file size 2MB" />
+                                </div>
+                            </div>
+                            <div class="row g-3">
+                                <div class="text-black pb-1 mylabel pb-1">ENABLE CALENDER</div>
+                                <div class="col-12 col-sm-6 mb-4">
+                                    <Switch Value="model.pic_Addpost.EnableCalender" ValueExpression="() => model.pic_Addpost.EnableCalender" ValueChanged="ToggleEnableCalender" Label="Enable calender feature fo this post" />
+                                </div>
+                            </div>
+
+                            <div class="row g-3" style="display:@displayHomePageToggle">
+                                <div class="text-black pb-1 mylabel pb-1">DISPLAY ON HOME PAGE</div>
+                                <div class="col-12 col-sm-6 mb-4">
+                                    <Switch @bind-Value="model.pic_Addpost.DisplayOnHomePage" Label="Display post on the home page" />
+                                </div>
+                            </div>
+                            <button class="btn btn-primary w-100" type="submit">Submit</button>
+                    </div>
+                </div>
+@* 
+                <div class="">
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-12 col-lg-6 pb-0">
+                                <button class="btn btn-primary w-100" type="submit">Submit</button>
+                            </div>
+                            <div class="col-12 col-md-12 col-lg-6 pb-0">
+                                <button class="btn btn-primary w-100" type="submit">Reset</button>
+                            </div>
+                        </div>
+                    </form>
+                </div> *@
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="bg-light rounded p-5 mb-4 wow slideInUp" data-wow-delay="0.1s">
+                    <h4 class="mb-4">Description</h4>
+                    <p class="m-0">skjdgsf</p>
+                </div>
+                    <div class="bg-light rounded p-5 wow slideInUp" data-wow-delay="0.1s">
+
+                        <h4 class="mb-4">Contact Details</h4>
+                    <div class="col-sm-12 col-md-12 col-lg-12 pb-0">
+                        <hr>
+                        <div class="form-label-group">
+                            <div class="mylabel pb-1">Choose Contact *</div>
+
+                            <select value="model.pic_Addpost.pic_user_id"  @onchange="ChangeUser" class="form-select js-example-basic-single3 form-control mb-4">
+                                {
+                                        <option selected value="@AuthenticationService.User.user_id">Own Contact</option>
+                                }
+                                @foreach (var usr in _postAdFieldsViewModel.ContactDetails)
+                                {
+                                        <option value="@usr.user_id">@string.Format("{0}, {1} ({2})", "PA00" + usr.user_id, usr.user_username, usr.user_id_unique )</option>
+                                }
+                            </select>
+                            </div>
+
+                        <div id="ajax_contact_div">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                        <h5 class="card-title"><i class="fa fa-1x fa-user-tie text-primary me-2"></i>@model.pic_Addpost.pic_user_fullname</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">@model.pic_Addpost.pic_user_email</h6>
+                                    <a href="#" class="card-link"><i class="fa fa-phone-alt me-3 text-primary"></i> @model.pic_Addpost.pic_user_mobile</a>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="row">
+
+                           <div class="col-sm-12 col-md-12 col-lg-6 pb-0">
+                                <div class="mylabel pb-1">Privacy *</div>
+                            <div class="form-check">
+                            <InputRadioGroup @bind-Value="model.pic_Addpost.pic_privacy">
+                                    <InputRadio Value="1"  class="form-check-input"  />Public <br />
+                                    <InputRadio Value="0" class="form-check-input" />Private                              
+                            </InputRadioGroup>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+        </div>
+        </EditForm>
+        </div>
+    </div>

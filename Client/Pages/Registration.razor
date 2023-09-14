@@ -1,0 +1,85 @@
+﻿@page "/Registration"
+@using System.ComponentModel.DataAnnotations;
+@using BlazorBootstrap
+@using Jobbvin.Client.Services;
+@using Microsoft.AspNetCore.WebUtilities;
+@using Microsoft.AspNetCore.Components.Forms;
+@* @using Microsoft.AspNetCore. *@
+@inject IAuthenticationService AuthenticationService;
+@inject IUserServiceClient UserServiceClient;
+@inject NavigationManager navigationManager;
+
+<div class="col-md-6 offset-md-3 mt-5">
+   
+    <div class="card">
+        <h4 class="card-header">Registration</h4>
+        <div class="card-body">
+            <Microsoft.AspNetCore.Components.Forms.EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
+                <DataAnnotationsValidator />
+                 <div class="row g-3" style="display:@displaySubmit">
+            
+                        <div class="col-12 col-sm-12">
+                            <input type="text" @bind-value=model.user_username required class="form-control" placeholder="Your Name *">
+                        </div>
+                        <div class="col-12 col-sm-12">
+                            <input type="email" class="form-control" required @bind-value=model.user_email placeholder="Your Email *">
+                        </div>
+                        <div class="col-12 col-sm-12">
+                            <input  class="form-control" type="password" required @bind-value=model.user_password placeholder="Password *">
+                        </div> 
+                        <div class="col-12 col-sm-12">
+                            <input class="form-control" type="password" required placeholder="Confirm Password *">
+                        </div>
+                        <div class="col-12 col-sm-12">
+                            <input type="text" @bind-value=model.user_mobile required class="form-control" placeholder="Mobile Number *">
+                        </div>
+                        <div class="col-12">
+                            <InputTextArea @bind-Value=model.user_city class="form-control" required rows="5" placeholder="Address *">@model.user_city</InputTextArea>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary w-100" type="submit" style="display:@displaySubmit">
+                                @if (loading)
+                                {
+                                    <span class="spinner-border spinner-border-sm mr-1"></span>
+                                }
+                                Submit
+                            </button>
+                        </div>
+                        @if (!string.IsNullOrEmpty(error))
+                        {
+                            <div class="alert alert-danger mt-3 mb-0">@error</div>
+                        }
+                </div>
+               
+                    <div class="row g-3">
+                    <div class="col-12 col-sm-6" style="display:@displayOTPText">
+                        <Badge Color="BadgeColor.Danger" VisuallyHiddenText="Visually hidden text for Danger">@timeRemains</Badge>
+                    </div><span style="display:@displayLogin">Click here to <a href="login">Login</a></span>
+                    <div class="col-12 col-sm-6" style="display:@displaySubmitResendOTP">
+                        <button class="btn btn-primary w-100" type="submit">
+                            @if (loading)
+                            {
+                                <span class="spinner-border spinner-border-sm mr-1"></span>
+                            }
+                            Resend OTP
+                        </button>
+                    </div>
+
+                    <div class="col-12 col-sm-12" style="display:@displayOTPText">
+                        <input type="text" @bind-value=model.mobile_val  class="form-control" placeholder="Enter the OTP you have received">
+                    </div>
+                    <div class="col-12" style="display:@displaySubmitOTP">
+                            <button class="btn btn-primary w-100" type="submit" >
+                                @if (loading)
+                                {
+                                    <span class="spinner-border spinner-border-sm mr-1"></span>
+                                }
+                                Validate OTP
+                        </button>
+                        </div>
+                    
+                </div>
+            </Microsoft.AspNetCore.Components.Forms.EditForm>
+        </div>
+    </div>
+</div>

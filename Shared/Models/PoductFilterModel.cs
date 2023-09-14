@@ -11,6 +11,6 @@ namespace Jobbvin.Shared.Models
         public int type { get; set; }
         public int sort { get; set; }
         public int offset { get; set; }
-
+        public int user_id { get; set; }
     }
 }

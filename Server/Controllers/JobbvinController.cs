@@ -54,6 +54,7 @@ namespace Jobbvin.Server.Controllers
             }
             catch (Exception ex)
             {
+                
                 _logger.LogError("Login user  : " + ex.Message);
                 return new StatusCodeResult(500);
 

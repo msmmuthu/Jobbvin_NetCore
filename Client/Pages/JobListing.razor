@@ -1,12 +1,18 @@
 ﻿@page "/JobListing"
+@using Jobbvin.Client.Services;
 @using Microsoft.AspNetCore.Authorization;
+@inject IAuthenticationService AuthenticationService;
 @using BlazorBootstrap;
 @inject NavigationManager navigationManager;
 @attribute [Authorize]
 
+<div class="container my-1 pt-1 pb-1">
+    <Breadcrumb Items="NavItems1" />
+</div>
+
 <PageTitle>Index</PageTitle>
 
-<div class="container-xxl py-5">
+<div class="container-xxl py-1">
     <div class="container">
         <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Job Listing</h1>
 
@@ -34,11 +40,9 @@
                     {
                         @foreach (var item in ProductListViewModels)
                         {
-                            <a href="/ProductDetails?adId=@item.pic_ads_id">
                             <CascadingValue Value="@item" Name="Item">
                                             <Jobbvin.Client.Components.ProductView />
-                            </CascadingValue>
-                            </a>
+                                </CascadingValue>
                         }
                     }
                     else

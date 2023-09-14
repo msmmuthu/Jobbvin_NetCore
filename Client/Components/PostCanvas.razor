@@ -1,0 +1,68 @@
+﻿@using BlazorBootstrap
+@using Jobbvin.Client.Constants;
+@inject NavigationManager navigationManager;
+
+<Offcanvas  @ref="offcanvasCategory" ShowCloseButton="false"  UseStaticBackdrop="true">
+
+    <BodyTemplate>
+        <div class="offcanvas-header "><h5>Default Categories</h5>
+            <Button Color="ButtonColor.Secondary" class="btn-close" @onclick="CloseOffCanvas"></Button>
+        </div>
+
+            <div class="col-sm-12">
+
+            @if (pic_categories_ViewModels != null && pic_categories_ViewModels.Count > 0)
+            {
+
+            <div class="list-group ">
+                    <footer class="default-footer pb-4">select the category</footer>
+
+
+                @foreach (var category in pic_categories_ViewModels)
+                {
+                    var imagePath = Common.MenuImageUrl + category.Maincategory.categories_image;
+
+
+                        <a href="" @onclick:preventDefault @onclick="() => SelectSubCategory(category.SubCategories)" class="list-group-item list-group-item-action">
+                            <img width="20" class="rounded mr-2" src="@imagePath">@category.Maincategory.categories_name
+                        </a>
+                }
+                </div>
+            }
+            </div>
+    </BodyTemplate>
+  
+</Offcanvas>
+
+<Offcanvas @ref="offcanvasSubCategory" ShowCloseButton="false" UseStaticBackdrop="true">
+
+    <BodyTemplate>
+        <div class="offcanvas-header ">
+            <h5>Default Categories</h5>
+            <Button Color="ButtonColor.Secondary" class="btn-close" @onclick="CloseSubCategoryOffCanvas"></Button>
+        </div>
+
+        <div class="col-sm-12">
+
+            @if (SubCategories != null && SubCategories.Count > 0)
+            {
+
+                <div class="list-group ">
+                    <footer class="default-footer pb-4">select the category</footer>
+
+
+                    @foreach (var category in SubCategories)
+                    {
+                        var imagePath = Common.MenuImageUrl + category.categories_image;
+
+
+                        <a href="" @onclick:preventDefault @onclick="() => OnSelectSubCategory(category.categories_id)" class="list-group-item list-group-item-action">
+                            <img width="20" class="rounded mr-2" src="@imagePath">@category.categories_name
+                        </a>
+                    }
+                </div>
+            }
+        </div>
+    </BodyTemplate>
+
+</Offcanvas>

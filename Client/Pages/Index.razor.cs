@@ -15,10 +15,16 @@ namespace Jobbvin.Client.Pages
         [Inject]
         [AllowNull]
         IUserServiceClient UserServiceClient { get; set; }
+        private List<BreadcrumbItem> NavItems1 { get; set; }
 
         public List<pic_categories_ViewModel> pic_categories_ViewModels { get; set; }
         protected override async Task OnInitializedAsync()
         {
+            NavItems1 = new List<BreadcrumbItem>
+            {
+                new BreadcrumbItem{ Text = "Home", Href ="/" ,IsCurrentPage = true },
+            };
+
             PreloadService.Show();
             await GetMenus();
             PreloadService.Hide();

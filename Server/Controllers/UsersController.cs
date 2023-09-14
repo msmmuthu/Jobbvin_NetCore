@@ -51,6 +51,8 @@ namespace Jobbvin.Server.Controllers
             return Ok(resp);
         }
 
+
+        //Should be called on registration to insert int tempuser and get OTP
         // POST api/users/tempuser
         [HttpPost("TempUser")]
         public async Task<IActionResult> TempUser([FromBody] temp_user temp_User)
@@ -59,6 +61,7 @@ namespace Jobbvin.Server.Controllers
 
             try
             {
+                temp_User.user_id_unique = temp_User.user_email;
                 await Db.Connection.OpenAsync();
                 var query = new UserQuery<UsersController>(Db, _configuration,_logger);
                 var resp = await query.CheckEmailsExists(temp_User.user_email);
@@ -99,14 +102,13 @@ namespace Jobbvin.Server.Controllers
                         {
                             _logger.LogInformation("TempUser : Insise Insert");
                             rec = await query.InsertTempUserAsync(temp_User);
-                            result.Message = "Inserted";
+                            result.Message = "Created !";
                             _logger.LogInformation("TempUser : Insise Insert completed");
 
                         }
-                        result = new ApiResponse();
                         if (rec)
                         {
-
+                            result = new ApiResponse();
                             var response = SMS.SendSMS(temp_User.user_mobile, temp_User.mobile_val);
                             _logger.LogInformation("SMS Status :  + response.ResponseStatus");
                             result.Status = true;
@@ -136,6 +138,7 @@ namespace Jobbvin.Server.Controllers
             return Ok(result);
         }
 
+        //After otp received actaual submission will be done in actal table pic_user
         [HttpPost("ValidateOtp")]
         public async Task<IActionResult> ValidateOtp([FromBody] temp_user temp_User)
         {
@@ -143,6 +146,7 @@ namespace Jobbvin.Server.Controllers
 
             try
             {
+                temp_User.user_id_unique = temp_User.user_email;
                 await Db.Connection.OpenAsync();
                 var query = new UserQuery<UsersController>(Db, _configuration,_logger);
                 var resp = await query.CheckOtP(temp_User);
@@ -151,6 +155,7 @@ namespace Jobbvin.Server.Controllers
                     result.Message = "Registration completed successfully";
                     result.Status = true;
                     result.ValidationName = "otp_validation";
+                    temp_User.user_status = 1;
                     await query.InsertTempUserIntoUserAsync(temp_User);
                     await query.DeleteTempUserIntoUserAsync(temp_User);
                     return Ok(result);
@@ -296,6 +301,8 @@ namespace Jobbvin.Server.Controllers
             }
             return Ok(result);
         }
+
+        //Update profile via user Menu option
 
         // POST api/users/PicUser
         [HttpPost("PicUser")]

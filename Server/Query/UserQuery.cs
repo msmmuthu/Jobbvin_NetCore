@@ -588,9 +588,9 @@ namespace Jobbvin.Server
             {
                 using var cmd = Db.Connection.CreateCommand();
                 if(requestFromUser)
-                cmd.CommandText = @"SELECT user_email,user_mobile,user_id FROM `temp_user` WHERE `user_email` = @emailId and `user_mobile` = @mobile";
-                else
                     cmd.CommandText = @"SELECT user_email,user_mobile,user_id FROM `pic_user` WHERE `user_email` = @emailId and `user_mobile` = @mobile";
+                else
+                    cmd.CommandText = @"SELECT user_email,user_mobile,user_id FROM `temp_user` WHERE `user_email` = @emailId and `user_mobile` = @mobile";
 
                 cmd.Parameters.Add(new MySqlParameter
                 {

@@ -1,26 +1,10 @@
-using global::System;
-using global::System.Collections.Generic;
-using global::System.Linq;
-using global::System.Threading.Tasks;
-using global::Microsoft.AspNetCore.Components;
-using System.Net.Http;
-using System.Net.Http.Json;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.AspNetCore.Components.WebAssembly.Http;
-using Microsoft.JSInterop;
-using Jobbvin.Client;
-using Jobbvin.Client.Shared;
-using Jobbvin.Shared.Models;
 using BlazorBootstrap;
+using global::Microsoft.AspNetCore.Components;
 using Jobbvin.Client.Services;
-using System.Diagnostics.CodeAnalysis;
+using Jobbvin.Shared.Models;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.WebUtilities;
-using System.Net.Sockets;
-using System.Net;
-using Microsoft.AspNetCore.Http;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Jobbvin.Client.Pages
 {
@@ -38,12 +22,14 @@ namespace Jobbvin.Client.Pages
         string likedClass = "text-success fa fa-check-circle";
         string likeText = "Liked";
         private string error;
+        private List<BreadcrumbItem> NavItems1 { get; set; }
 
         public pic_likes picLikes { get; set; } = new pic_likes();
         public ProductDetailsViewModel _productDetailsViewModel { get; set; }
         protected override async Task OnInitializedAsync()
         {
            
+
             var uri = navigationManager.ToAbsoluteUri(navigationManager.Uri);
 
             if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("adId", out var param1))
@@ -51,7 +37,13 @@ namespace Jobbvin.Client.Pages
                 AdId = Convert.ToInt32(param1.First());
             }
             await GetProductDetails();
-            
+            NavItems1 = new List<BreadcrumbItem>
+            {
+                new BreadcrumbItem{ Text = "Home", Href ="/" },
+                new BreadcrumbItem{ Text = "Listing", Href ="/JobListing?categoryId="+_productDetailsViewModel.ProductListViewModel.pic_categoryId },
+                new BreadcrumbItem{ Text = "Details", IsCurrentPage = true }
+            };
+
         }
 
         private async Task GetProductDetails()
@@ -90,7 +82,7 @@ namespace Jobbvin.Client.Pages
             else
             {
                 picLikes.likes_product_id = Convert.ToString(AdId);
-                picLikes.likes_cus_id = Convert.ToString( AuthenticationService.User.user_id);
+                picLikes.likes_cus_id = Convert.ToString(AuthenticationService.User.user_id);
                 //picLikes.likes_cus_ip = await GetIp();
                 picLikes.likes_cus_name = AuthenticationService.User.user_username;
                 picLikes.likes_cus_mobile = AuthenticationService.User.user_mobile;
@@ -151,6 +143,28 @@ namespace Jobbvin.Client.Pages
                 StateHasChanged();
             }
         }
-        
+
+        private async Task RatingUpdate(int val, int adId)
+        {
+            try
+            {
+                StarRatingModel starRating = new StarRatingModel();
+                starRating.ratingNumber = val;  
+                starRating.itemId = adId;
+                starRating.userId = AuthenticationService.User.user_id;
+                var res = await ProductServiceClient.StarRating(starRating);
+                if (res.Status)
+                {
+                    _productDetailsViewModel.StarRateValue = val;
+                }
+                else
+                    error = res.Message;
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                StateHasChanged();
+            }
+        }
     }
 }

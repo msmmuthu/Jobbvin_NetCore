@@ -284,6 +284,8 @@ namespace Jobbvin.Server.Controllers
                 //postAdViewModel.ProductListViewModel = await query.GetProductDetailsById(adId);
                 postAdViewModel.ProductCategoryFields = await query.GetPostFieldCategoriesDataByCategoryId(category_id);
                 postAdViewModel.BalanceScheme = await query.GetBalanceScheme(userId);
+                postAdViewModel.CategoryName = await query.GetCategoryText(category_id);
+
                 //prodDetailsViewModel.ProductFiles = await query.GetProductFilesById(adId);
                 //prodDetailsViewModel.DisplayContact = await query.CheckLikeExistsRecord(adId, customerId, prodDetailsViewModel.ProductListViewModel.pic_user_id.ToString());
                 var userQuery = new UserQuery<ProductsController>(Db, _configuration,_logger);
@@ -341,6 +343,7 @@ namespace Jobbvin.Server.Controllers
             //Insert and get AdPost
             await Db.Connection.OpenAsync();
             var query = new PoductsQuery<ProductsController>(Db, _configuration, _logger);
+            postAdView.pic_Addpost.pic_postdate = DateTime.Now;
             if (postAdView.pic_Addpost.pic_ads_id > 0)
             {
                 _logger.LogInformation("UdateAdPostAsync starts from contoller");
