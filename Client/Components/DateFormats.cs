@@ -6,5 +6,10 @@
         {
             return date.ToString("dd/MM/yyyy");
         }
+
+        public static string ToJobbvinDateHiphen(this DateTime date)
+        {
+            return date.ToString("dd-MM-yyyy");
+        }
     }
 }

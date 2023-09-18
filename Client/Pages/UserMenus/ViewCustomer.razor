@@ -1,0 +1,74 @@
+﻿@page "/View-Customer"
+@using BlazorBootstrap;
+
+@using Jobbvin.Shared.Models;
+@using Microsoft.AspNetCore.Authorization;
+
+@attribute [Authorize]
+
+<div class="container-fluid pt-4">
+    <div class="row">
+        <div class="col-sm-5 col-md-5 col-lg-3">
+            <Jobbvin.Client.Components.UserMenu />
+        </div>
+        @if (!string.IsNullOrEmpty(error))
+        {
+            <div class="alert alert-danger mt-3 mb-0">@error</div>
+        }
+        <div class="col-sm-7 col-md-7 col-lg-9">
+            <div class="row pt-0">
+                <div class="col-sm-10 col-md-10 col-lg-10 pb-0">
+                    <h4>View Customer</h4>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2 pb-0">
+                </div>
+            </div>
+            <hr>
+            <Grid TItem="pic_user" class="table table-hover table-bordered table-striped"
+                  PageSizeSelectorVisible="true"
+            PageSizeSelectorItems="@(new int[] { 5,10,20 })"
+            ItemsPerPageText="Items per page"
+                  HeaderRowCssClass="bg-primary text-white border-bottom-0"
+                  PaginationItemsTextFormat="{0} - {1} of {2} items"
+            DataProvider="EmployeesDataProvider" AllowFiltering="true" AllowPaging="true" PageSize="10" AllowSorting="true" Responsive="true" PaginationAlignment="Alignment.End">
+                <GridColumn TItem="pic_user" HeaderText="No" PropertyName="user_id" SortKeySelector="item => item.user_id">
+        @context.user_id
+    </GridColumn>
+                <GridColumn TItem="pic_user" HeaderText="Name" PropertyName="user_username" SortKeySelector="item => item.user_username">
+        @context.user_username  
+    </GridColumn>
+                <GridColumn TItem="pic_user" HeaderText="User Type" PropertyName="user_type" SortKeySelector="item => item.user_type">
+        @context.user_type
+    </GridColumn>
+     <GridColumn TItem="pic_user" HeaderText="Unique ID" PropertyName="user_id_unique" SortKeySelector="item => item.user_id_unique">
+        @context.user_id_unique
+    </GridColumn>
+                <GridColumn TItem="pic_user" HeaderText="Email" PropertyName="user_email" SortKeySelector="item => item.user_email">
+        @context.user_email
+    </GridColumn>
+                <GridColumn TItem="pic_user" HeaderText="Mobile" PropertyName="user_mobile" SortKeySelector="item => item.user_mobile">
+                    @context.user_mobile
+                </GridColumn>
+                <GridColumn TItem="pic_user" HeaderText="Location" PropertyName="user_city" SortKeySelector="item => item.user_city">
+                    @context.user_city
+                </GridColumn>
+</Grid>
+        </div>
+    </div>
+</div>
+
+<style>
+    .mylabel {
+        color: #3f4146 !important;
+        font-weight: bold !important;
+    }
+
+    label {
+        display: inline-block !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .form-group {
+        margin-bottom: 1rem !important;
+    }
+</style>

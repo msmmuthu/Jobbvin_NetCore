@@ -1,0 +1,28 @@
+﻿
+@using BlazorBootstrap;
+@using Jobbvin.Client.Constants;
+@using Microsoft.AspNetCore.Authorization;
+@inject NavigationManager navigationManager;
+
+@attribute [Authorize]
+
+
+<Sidebar @ref="sidebar"
+         IconName="IconName.ListUl"
+         Title="User Menu"
+         DataProvider="SidebarDataProvider" />
+
+         <style>
+ 
+    .bb-sidebar-top-row[b-h9l5f7lx3r] {
+        height: 3.5rem;
+        background-color: #5F9EA0 !important;
+        border-bottom: 1px solid #5F9EA0 !important;
+        border-right: 1px solid #5F9EA0 !important;
+        border-left: 1px solid #5F9EA0 !important;
+    }
+
+    .bb-sidebar nav .nav-item.nav-item-group:has(.nav-link.active)[b-jbgvk8pcne] {
+        background-color: transparent !important;
+    }
+         </style>

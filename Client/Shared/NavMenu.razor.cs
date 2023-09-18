@@ -13,11 +13,26 @@ using Microsoft.AspNetCore.Components.WebAssembly.Http;
 using Microsoft.JSInterop;
 using Jobbvin.Client;
 using Jobbvin.Client.Shared;
+using Jobbvin.Client.Services;
+using Jobbvin.Shared.Models;
 
 namespace Jobbvin.Client.Shared
 {
     public partial class NavMenu
     {
-        
+        private pic_user _user { get; set; }
+
+        [Inject]
+        public IAuthenticationService AuthenticationService { get; set; }
+        [Inject]
+        public NavigationManager navigationManager { get; set; }
+
+
+        public async Task SetUserAfteLogin(IAuthenticationService AuthenticationUser, NavigationManager navigationManager, string page)
+        {
+            _user = AuthenticationUser.User;
+            await Task.CompletedTask;
+            navigationManager.NavigateTo(page);
+        }
     }
 }

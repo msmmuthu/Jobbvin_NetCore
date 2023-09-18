@@ -33,8 +33,6 @@ namespace Jobbvin.Server
             {
                 using var cmd = Db.Connection.CreateCommand();
                 cmd.CommandText = @"SELECT * FROM `pic_categories` WHERE `categories_status` =1";
-
-
                 var result = await ReadAllCategoryDataAsync(await cmd.ExecuteReaderAsync());
                 return result;
             }
@@ -914,6 +912,8 @@ namespace Jobbvin.Server
             try
             {
                 using var cmd = Db.Connection.CreateCommand();
+                if (Db.Connection.State != System.Data.ConnectionState.Open)
+                    await Db.Connection.OpenAsync();
                 cmd.CommandText = @"select *,SUM(pic_scheme_balance_qty) AS sum_ads from pic_scheme_user where pic_user_id=@userid and pic_scheme_balance_qty!=0";
                 cmd.Parameters.Add(new MySqlParameter
                 {
@@ -941,7 +941,7 @@ namespace Jobbvin.Server
             {
                 while (await reader.ReadAsync())
                 {
-                    if (reader.HasRows)
+                    if (reader.HasRows && !reader.IsDBNull("sum_ads"))
                         return Convert.ToInt32(reader["sum_ads"]);
                     else
                         return count;

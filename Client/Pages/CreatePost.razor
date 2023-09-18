@@ -32,11 +32,10 @@
         <div class="row gy-5 gx-4">
             <div class="col-lg-8">
 
-                <div class="job-item p-4 mb-4 alert-info">
+                <div class="job-item p-4 alert-info">
                     <div class="row">
 
                         <div class="col-sm-12 col-md-12 col-lg-6 pb-0">
-
 
                             <div class="form-group">
                                 <div class="list-group">
@@ -81,7 +80,7 @@
                          <div class="row g-3">
                                     <div class="text-black pb-1 mylabel pb-1">TITLE *</div>
                                 <div class="col-12 col-sm-6">
-                                    <input type="text" class="form-control mb-4" @bind-value="model.pic_Addpost.pic_title" placeholder="ENTER TITLE">
+                                    <input type="text" class="form-control " @bind-value="model.pic_Addpost.pic_title" placeholder="ENTER TITLE">
                                 </div>
                                 <ValidationMessage For="@(()=>model.pic_Addpost.pic_title)" />
 
@@ -89,7 +88,7 @@
                             <div class="row g-3">
                                 <div class="text-black pb-1 mylabel pb-1">SALARY *</div>
                                 <div class="col-12 col-sm-6">
-                                    <input type="number" class="form-control mb-4" @bind-value="model.pic_Addpost.pic_price" placeholder="ENTER SALARY">
+                                    <input type="number" class="form-control" @bind-value="model.pic_Addpost.pic_price" placeholder="ENTER SALARY">
                                 </div>
                                 <ValidationMessage For="@(()=>model.pic_Addpost.pic_price)" />
 
@@ -130,7 +129,7 @@
                             <div class="row g-3">
                                 <div class="text-black pb-1 mylabel pb-1">UPLOAD PHOTO *</div>
                                 <div class="col-12 col-sm-6 mb-4">
-                                    <InputFile OnChange="@OnFileSelectedImageAsync" class="form-control bg-white" accept=".jpg, .jpeg, png" @bind-value="model.pic_Addpost.pic_title" o placeholder="Permitted : jpg, png, jpeg file types and max file size 2MB" />
+                                    <InputFile OnChange="@OnFileSelectedImageAsync" class="form-control bg-white" accept=".jpg, .jpeg, png" @bind-value="model.pic_Addpost.pic_title" placeholder="Permitted : jpg, png, jpeg file types and max file size 2MB" />
                                 </div>
                             </div>
                             <div class="row g-3">
@@ -166,10 +165,10 @@
 
             <div class="col-lg-4">
 
-                <div class="bg-light rounded p-5 mb-4 wow slideInUp" data-wow-delay="0.1s">
+               @*  <div class="bg-light rounded p-5 mb-4 wow slideInUp" data-wow-delay="0.1s">
                     <h4 class="mb-4">Description</h4>
                     <p class="m-0">skjdgsf</p>
-                </div>
+                </div> *@
                     <div class="bg-light rounded p-5 wow slideInUp" data-wow-delay="0.1s">
 
                         <h4 class="mb-4">Contact Details</h4>

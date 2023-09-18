@@ -2,14 +2,13 @@
 @using Jobbvin.Shared.Models;
 @inject NavigationManager Navigation
 
-@if (AuthenticationService.User != null)
+@if (_user != null)
 {
-       
-
+   
     <div class="nav-item dropdown">
-        <span class="fa fa-2x fa-user-tie text-primary mb-4" style="margin-top: 14px;margin-right: 5px;"></span> <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">@AuthenticationService.User.user_username</a>
+        <span class="fa fa-2x fa-user-tie text-primary mb-4" style="margin-top: 14px;margin-right: 5px;"></span> <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">@_user.user_username</a>
         <div class="dropdown-menu rounded-0 m-0">
-            <a href="profile" class="dropdown-item">Menu</a>
+            <a href="View-Profile" class="dropdown-item">Menu</a>
             <a href="logout" class="dropdown-item">Logout</a>
         </div>
     </div>
@@ -23,11 +22,13 @@
     private bool isUserModalVisible { get; set; } = false;
     private string UserId { get; set; }
     private string display { get; set; } = "none";
-    private pic_user _user { get; set; }
+
+    [CascadingParameter(Name = "_user")]
+    public pic_user _user { get; set; }
 
 
-    [Inject]
-    public IAuthenticationService AuthenticationService { get; set; }
+    // [Inject]
+    // public IAuthenticationService AuthenticationService { get; set; }
 
     private async Task BeginLogout()
     {
@@ -39,10 +40,9 @@
 
     }
 
-    protected override void OnInitialized()
-    {
-        _user = AuthenticationService.User;
-    }
+
+   
+
     private void UserProfile(MouseEventArgs args)
     {
         if (isUserModalVisible)

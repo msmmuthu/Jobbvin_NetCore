@@ -1,0 +1,231 @@
+﻿@page "/Manage-Profile"
+@using Microsoft.AspNetCore.Authorization;
+@using Jobbvin.Client.Enum;
+@attribute [Authorize]
+
+<div class="container-fluid pt-4">
+    <div class="row">
+        <div class="col-sm-5 col-md-5 col-lg-3">
+            <Jobbvin.Client.Components.UserMenu />
+        </div>
+
+        <div class="col-sm-7 col-md-7 col-lg-9">
+          <Microsoft.AspNetCore.Components.Forms.EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
+                <DataAnnotationsValidator />
+            <div class="row pt-0">
+                    <div class="col-sm-10 col-md-10 col-lg-10 pb-0">
+                        <h4>My Account Details</h4>
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2 pb-0">
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-3">
+                        <link rel="stylesheet prefetch" href="https://foliotek.github.io/Croppie/croppie.css">
+                        <label class="mylabel" for="profile_pic">Photo *</label>
+                        <div class="form-group">
+                            <label class="cabinet center-block">
+                                <figure>
+                                    <img src="media/profile/0.42464000_1630596679.jpg" class="gambar img-responsive img-thumbnail" id="item-img-output" width="150">
+                                    <input type="hidden" name="crop_final_data" id="crop_final_data" value="">
+                                    <figcaption><i class="fa fa-camera"></i></figcaption>
+                                </figure>
+                                <input type="file" class="item-img file center-block form-control custom-file-input" name="file_photo">
+                            </label>
+                        </div>
+                        <div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div id="upload-demo" class="center-block croppie-container"><div class="cr-boundary" aria-dropeffect="none"><img class="cr-image" alt="preview" aria-grabbed="false"><div class="cr-viewport cr-vp-square" tabindex="0" style="width: 150px; height: 200px;"></div><div class="cr-overlay"></div></div><div class="cr-slider-wrap"><input class="cr-slider" type="range" step="0.0001" aria-label="zoom"></div></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" id="cropImageBtn" class="btn btn-primary">Crop</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-3">
+                        <div class="form-group">
+                            <label class="mylabel" for="name">Name *</label>
+                            <input type="text" required="" class="form-control" id="name" name="name" @bind-value="model.user_username">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dob" class="mylabel">Date of Birth *</label>
+                            <input class="form-control" type="date" name="dob" id="dob" @bind-value="@model.user_dob">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mylabel" for="exampleRadios1">Sex</label>
+                            <div class="form-check">
+                                <input class="form-check-input" checked="@(model.user_sex == GenderEnum.Male.ToString())" @onchange="@(() => model.user_sex = GenderEnum.Male.ToString())" type="radio" name="Sex" value="Male" id="Sex_0">
+                                <label class="form-check-label" for="exampleRadios1">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" checked="@(model.user_sex == GenderEnum.Female.ToString())" @onchange="@(() => model.user_sex = GenderEnum.Female.ToString())" type="radio" name="Sex" value="Female" id="Sex_1">
+                                <label class="form-check-label" for="exampleRadios1">
+                                    Female
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group">
+                            <label class="mylabel" for="name1">Introducer ID</label>
+                            <input autofocus="" disabled="disabled" type="text" class="form-control" id="name1" name="name1" @bind-value="@model.user_refer">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mylabel" for="name2">Customer ID</label>
+                            <input autofocus="" disabled="disabled" type="text" class="form-control" id="name2" name="name2" @bind-value="@model.user_id"><span>PA00</span>@model.user_id</input>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mylabel" for="name3">User Type</label>
+                            <input type="text" disabled="disabled" class="form-control" id="name3" name="name3" @bind-value="@model.user_type">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+
+                        <div class="form-group">
+                            <label class="mylabel" for="email">Username / Email*</label>
+                            <input required="" disabled="" type="text" class="form-control" id="email" name="email" @bind-value="@model.user_email">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mylabel" for="pass">Current Password *</label>
+                            <input type="password" required="" class="form-control" id="pass" name="pass" placeholder="Enter password" @bind-value="@model.user_password">
+                        </div>
+                        <div class="form-group">
+                            <label class="mylabel" for="pass_new">New Password</label>
+                            <input type="password" class="form-control" id="pass_new" name="pass_new" placeholder="Leave empty to use existing password..">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mylabel" for="pass_confirm">Confirm Password</label>
+                            <input type="password" class="form-control" id="pass_confirm" name="pass_confirm" placeholder="Leave empty to use existing password..">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <label class="mylabel" for="pass_confirm">Mobile *</label>
+                        <div class="input-group form-group">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">+91</span>
+                            </div>
+                            <input disabled="" type="number" @bind-value="@model.user_mobile" id="phone" name="mobile" maxlength="10" class="form-control" size="20" style="width:67%;">
+                        </div>
+
+                        <div class="form-group">
+                           
+                            <label class="mylabel" for="city_header_profile_man">City *</label>
+
+                            <input style="display:none;" required class="form-control" type="text" placeholder="Search your town and district...." name="addressregman" onfocus="initializeAutocompleteRegMan()" id="localityregman">
+
+                            <input value="Sivaganga" id="city_header_profile_man" class="form-control" style="margin-top: 6px;width:100%;" type="text" name="city_header_profile_man" required="" placeholder="City...">
+                            <a href="#" id="change_loc_man" onclick="">Change Location</a>
+                            <input type="hidden" name="townregman" id="townregman">
+                            <input type="hidden" name="latregman" id="latregman" value="">
+                            <input type="hidden" name="lonregman" id="lonregman" value="">
+                        </div>
+                      
+                        <div class="form-group">
+
+                            <input type="hidden" name="hdnUserDocument" id="hdnUserDocument" value="1630752029.pdf">
+
+                         
+                            <label class="mylabel" for="city_header_profile">Upload Document *</label>
+                            <div class="editroute btn btn-light btn-block" style="position:relative;">
+                                <input id="fileUploadId" type="file" name="fileUpload[]" class="fileUploadCls" onchange="checkFileUpload('fileUploadId')" value="">
+                                <span><i class="fa fa-upload"></i> <span id="fileUploadTxt">Upload </span></span>
+                            </div>
+                            <div id="fileUploadErrHolderId" class="form-group">
+                                <div class="fileUploadErrMsgCls">Permitted file types : pdf, doc, docx</div>
+                            </div>
+                            <div class="form-group">
+                                <div class="hint">
+                                    <a target="_blank" href="https://jobbvin.com/media/uploadfiles/1630752029.pdf">
+                                        Download Document
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group">
+                            <input style="background-color:#0d6efd !important" type="submit" name="update" class="btn btn-lg btn-primary btn-block text-uppercase form-control" value="update">
+                        </div>
+                    </div>
+                </div>
+            </Microsoft.AspNetCore.Components.Forms.EditForm>
+        </div>
+    </div>
+</div>
+
+<style>
+
+    #set_loc_btn {
+        display: none;
+    }
+
+    .mylabel {
+        color: #3f4146 !important;
+        font-weight: bold !important;
+    }
+
+    label {
+        display: inline-block !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .form-group {
+        margin-bottom: 1rem !important;
+    }
+
+    .img-thumbnail {
+        max-width: 150px;
+    }
+
+    label.cabinet {
+        display: block;
+        cursor: pointer;
+    }
+
+        label.cabinet input.file {
+            position: relative;
+            width: auto;
+            opacity: 0;
+            -moz-opacity: 0;
+            filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+            margin-top: -30px;
+        }
+
+    #upload-demo {
+        /*width: 350px;*/
+        height: 486px;
+        padding-bottom: 25px;
+    }
+
+    figure figcaption {
+        bottom: 0;
+        color: #fff;
+        width: 100%;
+        padding-left: 9px;
+        padding-bottom: 5px;
+        text-shadow: 0 0 10px #000;
+    }
+</style>
+
