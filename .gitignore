@@ -3,6 +3,7 @@
 ################################################################################
 
 *.dll
+*/.vs/Jobbvin/
 /.vs/Jobbvin/FileContentIndex/05202dca-6bcc-4660-8012-80151eb979f0.vsidx
 /.vs/Jobbvin/FileContentIndex/5907b3df-5f8b-4e68-a68f-154e8dec70be.vsidx
 /.vs/Jobbvin/FileContentIndex/acb4a418-e57d-46c1-9224-af1e86b4338f.vsidx
