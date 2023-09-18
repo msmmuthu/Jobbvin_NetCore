@@ -12,3 +12,6 @@
 /.vs/Jobbvin/v17/.futdcache.v2
 /.vs/Jobbvin/v17/.suo
 /.vs/Jobbvin/v17/HierarchyCache.v1.txt
+**/bin/Debug/
+**/bin/Release/
+**/obj/
