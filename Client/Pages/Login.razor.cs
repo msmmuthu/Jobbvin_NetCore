@@ -25,6 +25,9 @@ namespace Jobbvin.Client.Pages
         private Model model = new Model();
         private bool loading;
         private string error;
+        [Inject]
+        public IAuthenticationService AuthenticationUser { get; set; }
+        private NavMenu loginDisplay;
         protected override void OnInitialized()
         {
             // redirect to home if already logged in
@@ -37,10 +40,12 @@ namespace Jobbvin.Client.Pages
         private async void HandleValidSubmit()
         {
             loading = true;
+            loginDisplay= new NavMenu();
             try
             {
                 await AuthenticationService.Login(model.Username, model.Password);
                 var returnUrlUri = navigationManager.ToAbsoluteUri(navigationManager.Uri);
+                //await loginDisplay.SetUserAfteLogin(AuthenticationUser);
                 if (QueryHelpers.ParseQuery(returnUrlUri.Query).TryGetValue("returnUrl", out var param1))
                     // var returnUrl = navigationManager.QueryString("returnUrl") ?? "/";
                     navigationManager.NavigateTo(param1.First());

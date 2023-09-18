@@ -24,10 +24,26 @@
                     <a href="404.html" class="dropdown-item">404</a>
                 </div>
             </div>
-            @* <a href="Login" class="nav-item nav-link">Login</a> *@
-            <LoginDisplay/> 
+
+            @if (_user != null)
+            {
+
+                <div class="nav-item dropdown">
+                    <span class="fa fa-2x fa-user-tie text-primary mb-4" style="margin-top: 14px;margin-right: 5px;"></span> <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">@_user.user_username</a>
+                    <div class="dropdown-menu rounded-0 m-0">
+                        <a href="View-Profile" class="dropdown-item">Menu</a>
+                        <a href="logout" class="dropdown-item">Logout</a>
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <a href="login" class="nav-item nav-link">Login</a>
+            }
+
         </div>
-        <a href="/PostAd" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Post A Job<i class="fa fa-arrow-right ms-3"></i></a>
+        <a href="/PostAd" class="btn btn-primary rounded-0 py-4 px-lg-5 d-lg-block">Post A Job<i class="fa fa-arrow-right ms-3"></i></a>
      
     </div>
 </nav>

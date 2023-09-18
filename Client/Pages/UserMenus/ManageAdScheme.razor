@@ -1,0 +1,137 @@
+﻿@page "/Purchase-Scheme"
+
+@using BlazorBootstrap;
+@using Jobbvin.Shared.Models;
+@using Microsoft.AspNetCore.Authorization;
+
+@attribute [Authorize]
+
+<div class="container-fluid pt-4">
+    <div class="row">
+        <div class="col-sm-5 col-md-5 col-lg-3">
+            <Jobbvin.Client.Components.UserMenu />
+        </div>
+
+        <div class="col-sm-7 col-md-7 col-lg-9">
+           
+                <div class="row pt-0">
+                    <div class="col-sm-10 col-md-10 col-lg-10 pb-0">
+                        <h4>Purchase Scheme</h4>
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2 pb-0">
+                    </div>
+                </div>
+                <hr>
+            @if (!string.IsNullOrEmpty(success))
+            {
+                <div class="alert alert-success" role="alert">
+                    Scheme Purchased. Go Back <a href="Purchase-History" class="alert-link">My Scheme</a>.
+                </div>
+            }
+            else
+            {
+                <Grid TItem="Jobbvin.Shared.Models.SchemeListModel" class="table table-hover table-bordered table-striped"
+                PageSizeSelectorVisible="true"
+                  AllowSelection="true"
+                  SelectedItemsChanged="OnSelectedItemsChanged"
+                PageSizeSelectorItems="@(new int[] { 5,10,20 })"
+                ItemsPerPageText="Items per page"
+                SelectionMode="GridSelectionMode.Single"
+                
+                HeaderRowCssClass="bg-primary text-white border-bottom-0"
+                PaginationItemsTextFormat="{0} - {1} of {2} items"
+                DataProvider="PicSchemeDataProvider" AllowFiltering="true" AllowPaging="true" PageSize="10" AllowSorting="true" Responsive="true" PaginationAlignment="Alignment.End">
+                    <GridColumn TItem="SchemeListModel" HeaderText="Scheme Name" PropertyName="SchemeName" SortKeySelector="item => item.SchemeName">
+                        @context.SchemeName
+                    </GridColumn>
+                    <GridColumn TItem="SchemeListModel" HeaderText="Scheme Description" PropertyName="SchemeDescription" SortKeySelector="item => item.SchemeDescription">
+                        @context.SchemeDescription
+                    </GridColumn>
+                    <GridColumn TItem="SchemeListModel" HeaderText="Price" PropertyName="Price" SortKeySelector="item => item.Price">
+                        @context.Price
+                    </GridColumn>
+                   @*  <GridColumn TItem="SchemeListModel" PropertyName="Select" Filterable="false" Sortable="false">
+                        <HeaderContent>
+                            Select
+                        </HeaderContent>
+                        <ChildContent>
+                        <Switch @bind-Value="context.Select" />
+                        </ChildContent>
+                    </GridColumn> *@
+                </Grid>
+            
+            <Microsoft.AspNetCore.Components.Forms.EditForm Model="@schemeListModel" OnValidSubmit="SubmitSchemePurchase">
+                <DataAnnotationsValidator />
+                @if (!string.IsNullOrEmpty(error))
+                {
+                    <div class="alert alert-danger mt-3 mb-0">@error</div>
+                }
+               
+                <table id="schemelist" class="table table-bordered"  data-select2-id="schemelist">
+                    <thead>
+                        <tr align="left" style="display: none;">
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody data-select2-id="7">
+                        <tr>
+                            <td colspan="4" align="left">
+                                <label for="payment_details"><strong>Payment Details *</strong></label>
+                                <input required type="text" name="payment_details" placeholder="Payment Details" class="form-control" @bind-value="schemeListModel.PaymentDetails"></input>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="4" align="left" data-select2-id="6">
+
+                                <label for="purpose"><strong>Ads Type *</strong></label>
+                                <select class="form-control select2-hidden-accessible" name="purpose" @onchange="TypeChange" id="purpose" data-select2-id="purpose" tabindex="-1" aria-hidden="true">
+                                    <option value="post" selected="selected" data-select2-id="4">Post Ads</option>
+                                    <option value="request" data-select2-id="8">Request Ads</option>
+                                </select>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td colspan="4" align="left">
+                               
+                                @if (schemes != null && schemes.DisplaySubmitButton)
+                                {
+                                        <input name="btn_scheme_save" type="submit" value="Save" class="btn btn-primary btn-lg w-100">
+                                }
+                                else
+                                {
+                                    <div class="alert alert-warning" role="alert">
+                                        You purchased already! Please check your scheme status <a class="alert-link" href="Purchase-History">Scheme Status</a>
+                                    </div>
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </Microsoft.AspNetCore.Components.Forms.EditForm>
+                }
+        </div>
+    </div>
+</div>
+
+<style>
+    .mylabel {
+        color: #3f4146 !important;
+        font-weight: bold !important;
+    }
+
+    label {
+        display: inline-block !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .form-group {
+        margin-bottom: 1rem !important;
+    }
+</style>

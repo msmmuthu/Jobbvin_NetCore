@@ -26,6 +26,9 @@ namespace Jobbvin.Shared.Models
         public string payment_remarks { get; set; }
         public int photo_limit { get; set; }
         public int ads_valid { get; set; }
+
+        public bool IsSelected { get; set; }
+
         public DateTime scheme_expiry { get; set; }
     }
     public class Pic_Ads_Count
@@ -53,11 +56,12 @@ namespace Jobbvin.Shared.Models
     {
         public int SchemeId { get; set; }
 
-        public string SchemeName { get; set; }
-        public string SchemeDescription { get; set; }
+        public string? SchemeName { get; set; }
+        public string? SchemeDescription { get; set; }
         public int Price { get; set; }
-        public int Select { get; set; }
-        public string Purpose { get; set; } //Reques/Post
+        public bool Select { get; set; }
+        public string? Purpose { get; set; } //Reques/Post
+
         public string PaymentDetails { get; set; }
 
     }

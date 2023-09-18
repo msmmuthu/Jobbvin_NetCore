@@ -3,7 +3,7 @@
 @if (field.FieldType.ToLower() == "dropdown")
     {
         <div class="col-12 col-sm-6">
-            <InputSelect @bind-Value="adPostfield.addpost_fields_value" class="form-select js-example-basic-single3 form-control mb-0">
+            <InputSelect @bind-Value="adPostfield.addpost_fields_value" class="form-select js-example-basic-single3 form-control">
                 <option value="">SELECT @field.FieldTitle.ToUpperInvariant()</option>
                 @foreach (var lst in field.FieldListValues)
                 {
@@ -21,7 +21,7 @@
     else if (field.FieldType.ToLower() == "textbox" || field.FieldType.ToLower() == "text")
     {
         <div class="col-12 col-sm-6">
-            <input type="text" class="form-control mb-0" @bind-value="adPostfield.addpost_fields_value" placeholder="ENTER @field.FieldTitle.ToUpperInvariant()">
+            <input type="text" class="form-control" @bind-value="adPostfield.addpost_fields_value" placeholder="ENTER @field.FieldTitle.ToUpperInvariant()">
         </div>
         <ValidationMessage For="@(()=>adPostfield.addpost_fields_value)" />
 

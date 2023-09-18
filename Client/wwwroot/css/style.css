@@ -117,7 +117,9 @@
 .navbar-light a.btn {
     height: 75px;
 }
-
+.d-lg-block {
+    display: block !important;
+}
 .navbar-light .navbar-nav .nav-link {
     color: var(--dark);
     font-weight: 500;

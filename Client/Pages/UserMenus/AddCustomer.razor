@@ -1,0 +1,210 @@
+﻿@page "/Add-Customer"
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize]
+
+
+<div class="container-fluid pt-4">
+    <div class="row">
+        <div class="col-sm-5 col-md-5 col-lg-3">
+            <Jobbvin.Client.Components.UserMenu />
+        </div>
+
+        <div class="col-sm-7 col-md-7 col-lg-9">
+            <form id="registerform" name="registerform" method="post" action="" onsubmit="return register_validate();" enctype="multipart/form-data" autocomplete="off">
+                <div class="row pt-0">
+                    <div class="col-sm-10 col-md-10 col-lg-10 pb-0">
+                        <h4>Register Now!</h4>
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2 pb-0">
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-6 bg_form p-4">
+                        <input type="hidden" name="action" value="model">
+                        <input type="hidden" name="module" value="account">
+                        <input type="hidden" name="post" value="account insert">
+                        <input type="hidden" name="usr" value="PA002">
+
+                        <label class="mylabel">You are an * &nbsp;&nbsp;</label>
+                        <div class="form-inline">
+
+
+                            <div class="form-check pr-2">
+                                <input class="form-check-input" id="customer" type="radio" name="areYou[]" value="customer">
+                                <label class="form-check-label" for="customer">
+                                    customer
+                                </label>
+                            </div>
+                            <div class="form-check pr-2">
+                                <input class="form-check-input" id="Appraiser" type="radio" name="areYou[]" value="Appraiser" checked="checked">
+                                <label class="form-check-label" for="Appraiser">
+                                    Appraiser
+                                </label>
+                            </div>
+                            <div class="form-check pr-2">
+                                <input class="form-check-input" id="BRANCH" type="radio" name="areYou[]" value="BRANCH">
+                                <label class="form-check-label" for="BRANCH">
+                                    BRANCH
+                                </label>
+                            </div>
+                            <div class="form-check pr-2">
+                                <input class="form-check-input" id="REGIONAL" type="radio" name="areYou[]" value="REGIONAL">
+                                <label class="form-check-label" for="REGIONAL">
+                                    REGIONAL
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group pt-2">
+                            <div class="form-check">
+
+                                <input type="checkbox" class="form-check-input" name="yes_refer" id="yes_refer" value="PA002" onchange="CheckCheckboxes1(this)">
+                                <label class="form-check-label mylabel" for="yes_refer">Reference *</label>
+                            </div>
+
+                            <input type="text" class="form-control" id="refer" name="refer" readonly="readonly" value="PA002">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mylabel" for="name">Name *</label>
+                            <input type="text" required="" class="form-control" id="name" name="name">
+                        </div>
+
+                        <label class="mylabel" for="userid">User ID *</label>
+                        <div class="form-group form-inline">
+
+                            <input type="text" class="form-control mr-2" style="width:75%" id="userid" name="userid" required="" value="">
+                            <input type="button" class="btn btn-primary" style="width:20%" name="checkid" value="Check" onclick="javascript:checkUserId();">
+                        </div>
+                        <div id="id_div">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mylabel" for="email">Email *</label>
+                            <input type="text" required="" class="form-control" id="email" name="email" value="">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mylabel" for="pass">Password *</label>
+                            <input type="password" class="form-control" id="pass" name="pass" required="">
+                        </div>
+
+                        <label class="mylabel" for="phone">Mobile *</label>
+                        <div class="form-group form-inline">
+
+                            <input type="text" disabled="disabled" style="width:20%" value="+91" class="form-control mr-2" id="phone_prefix" name="mobile_prefix" maxlength="10" size="2">
+                            <input type="text" value="" id="phone" style="width:77%" name="mobile" maxlength="10" pattern="[789][0-9]{9}" placeholder="Mobile (Eg:9842212345)" class="form-control" size="20">
+                            <div>(We will verify this number for privacy protection)</div>
+
+                        </div>
+
+                        <div class="form-group">
+                           
+                            <label class="mylabel" for="city_header_profile">City *</label>
+
+                            <input value="Sivaganga" id="city_header_profile" class="form-control" style="margin-top: 6px;width:100%;" type="text" name="city_header_profile" onfocus="initializeAutocompleteReg()" autocomplete="off" required="" placeholder="Enter your town and district....">
+
+                            <input value="" style="display:none;margin-top: 6px;width:100%;" class="form-control" type="text" placeholder="Town here..." name="townreg" id="townreg" required="">
+
+                            <input type="hidden" name="latreg" id="latreg" value="">
+                            <input type="hidden" name="lonreg" id="lonreg" value="">
+                        </div>
+                        <div class="row g-3">
+                            <div class="text-black pb-1 mylabel pb-1">Uploa File *</div>
+                            <div class="col-12 col-sm-6 mb-4">
+                                <InputFile  class="form-control bg-white" accept=".jpg, .jpeg, png" placeholder="Permitted : jpg, png, jpeg file types and max file size 2MB" />
+                            </div>
+                        </div>
+
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" required="" name="yes_refer" id="yes_refer" value="PA002" onchange="CheckCheckboxes1(this)">
+                            <label class="form-check-label text-danger" for="yes_refer">I confirm that I am 18 years or older</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" name="register" class="btn btn-lg btn-primary btn-block text-uppercase w-100" value="Register">
+                        </div>
+
+
+                        <div class="space_10"></div>
+                        <div class="space_10"></div>
+                        <div id="error_register" class="rows" style="color:#FF0000; display:none;">
+                            ! Please Fill Required Information
+                        </div>
+                        <div id="error_register_email" class="rows" style="color:#FF0000; display:none;">
+                            ! Email Address Invalid
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+  <style>
+    .form-inline {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-flow: row wrap;
+        flex-flow: row wrap;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    #set_loc_btn {
+        display: none;
+    }
+
+    .img-thumbnail {
+        max-width: 150px;
+    }
+
+    .form-inline {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-flow: row wrap;
+        flex-flow: row wrap;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .pt-2, .py-2 {
+        padding-top: 0.8rem !important;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .mr-2, .mx-2 {
+        margin-right: 0.8rem !important;
+    }
+
+    .pr-2, .px-2 {
+        padding-right: 0.8rem !important;
+    }
+
+    .form-check {
+        position: relative;
+        display: block;
+        padding-left: 1.25rem;
+    }
+ 
+
+    .mr-3, .mx-3 {
+        margin-right: 1rem !important;
+    }
+
+    .mylabel {
+        color: #3f4146;
+        font-weight: bold;
+    }
+
+    label {
+        display: inline-block;
+        margin-bottom: 0.5rem;
+    }
+                       
+</style>

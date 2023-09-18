@@ -12,6 +12,11 @@ namespace Jobbvin.Client.Services
         Task<List<pic_categories_ViewModel>> GetMenus();
         Task<ApiResponse> InsertTempUser(temp_user temp_User);
         Task<ApiResponse> ValidateOtp(temp_user temp_User);
+        Task<List<pic_user>> ViewCustomers(int userId);  
+        Task<List<pic_scheme_user>> SchemePurchaseHistory(int userId);
+        Task<List<Pic_Ads_Count>> SchemeAdsCount(int userId);
+        Task<SchemeListViewModel> SchemeList(int userId);   
+        Task<ApiResponse> PostSchemePurchase(SchemeListModel postAdViewModel, int userId);
     }
 
     public class UserServiceClient : IUserServiceClient
@@ -124,6 +129,113 @@ namespace Jobbvin.Client.Services
             catch (Exception ex)
             {
                 Console.WriteLine("Error on validate otp : " + ex.Message);
+                return new ApiResponse();
+            }
+        }
+
+        public async Task<List<pic_user>> ViewCustomers(int userId)
+        {
+            var viewModel = new List<pic_user>();
+            try
+            {
+                HttpClient.DefaultRequestHeaders.Accept.Add(
+                    new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                var resp = await HttpClient.GetFromJsonAsync<List<pic_user>>($"api/Users/ViewCustomers?userId=" + userId);
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error on fetch ViewCustomers : " + ex.Message);
+                return new List<pic_user>();
+            }
+        }
+
+        public async Task<List<pic_scheme_user>> SchemePurchaseHistory(int userId)
+        {
+            var viewModel = new List<pic_scheme_user>();
+            try
+            {
+                HttpClient.DefaultRequestHeaders.Accept.Add(
+                    new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                var resp = await HttpClient.GetFromJsonAsync<List<pic_scheme_user>>($"api/Users/SchemePurchaseHistory?userId=" + userId);
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error on fetch SchemePurchaseHistory : " + ex.Message);
+                return new List<pic_scheme_user>();
+            }
+        }
+
+        public async Task<List<Pic_Ads_Count>> SchemeAdsCount(int userId)
+        {
+            var viewModel = new List<Pic_Ads_Count>();
+            try
+            {
+                HttpClient.DefaultRequestHeaders.Accept.Add(
+                    new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                var resp = await HttpClient.GetFromJsonAsync<List<Pic_Ads_Count>>($"api/Users/SchemeAdsCount?userId=" + userId);
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error on fetch SchemeAdsCount : " + ex.Message);
+                return new List<Pic_Ads_Count>();
+            }
+        }
+
+        public async Task<SchemeListViewModel> SchemeList(int userId)
+        {
+            var viewModel = new SchemeListViewModel();
+            try
+            {
+                HttpClient.DefaultRequestHeaders.Accept.Add(
+                    new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                var resp = await HttpClient.GetFromJsonAsync<SchemeListViewModel>($"api/Users/SchemeList?userId=" + userId);
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error on fetch SchemeList : " + ex.Message);
+                return new SchemeListViewModel();
+            }
+        }
+
+        public async Task<ApiResponse> PostSchemePurchase(SchemeListModel schemeListModel, int userId)
+        {
+            var viewModel = new ApiResponse();
+            try
+            {
+                HttpClient.DefaultRequestHeaders.Accept.Add(
+                    new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                var resp = await HttpClient.PostAsJsonAsync<SchemeListModel>($"api/Users/PostSchemePuchase?userId={userId}", schemeListModel);
+                if (resp.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    try
+                    {
+                        viewModel = await resp.Content.ReadFromJsonAsync<ApiResponse>();
+                        var options = new JsonSerializerOptions()
+                        {
+                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                        };
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error on content support PostSchemePuchase : " + ex.Message);
+
+                    }
+                }
+
+                return viewModel;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error on PostSchemePuchase : " + ex.Message);
                 return new ApiResponse();
             }
         }

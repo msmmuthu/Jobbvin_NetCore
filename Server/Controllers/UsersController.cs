@@ -228,6 +228,11 @@ namespace Jobbvin.Server.Controllers
             return Ok(resp);
         }
 
+        /// <summary>
+        /// List the available scheme to purchase
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [HttpGet("SchemeList")]
         public async Task<IActionResult> SchemeList(int userId)
         {
@@ -248,9 +253,9 @@ namespace Jobbvin.Server.Controllers
             return Ok(schemeListViewModels);
         }
 
-        // POST api/users/tempuser
+        // POST api/users/PostSchemePuchase
         [HttpPost("PostSchemePuchase")]
-        public async Task<IActionResult> PostSchemePuchase([FromBody] SchemeListModel schemeListModel, int userId)
+        public async Task<IActionResult> PostSchemePuchase(SchemeListModel schemeListModel, int userId)
         {
             var result = new ApiResponse();
 
